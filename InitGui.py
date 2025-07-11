@@ -33,10 +33,10 @@
 import os
 import FreeCAD
 from FreeCAD import Gui
-import AnSvgToolset
+import SvgToolkit
 
-TemplaterPath = AnSvgToolset.mod_path
-TemplaterIconPath = AnSvgToolset.icons_path
+TemplaterPath = SvgToolkit.mod_path
+TemplaterIconPath = SvgToolkit.icons_path
 
 class Templater (Workbench):
     global TemplaterIconPath
@@ -53,25 +53,11 @@ class Templater (Workbench):
         Activated function.
         """
         #- import here all the needed files that create your FreeCAD commands
-        import AnSvgToolset
-        import InsertTemplatePanelExtern
-        import SayHello
-        import WriteTemplate
-        import WriteTemplateHHA38
-        import WriteTemplateHHA60
-        import WriteTemplateHHA63
-        import SymbolTolerance
-        import AuxView
         import os.path
+        import SvgToolkit
+        import AuxView
         #- a list of command names created in the line above
         self.list = [
-            "Templater_InsertTemplate",
-            "Templater_SayHello",
-            "Templater_WriteTemplate",
-            "Templater_WriteTemplateHHA38",
-            "Templater_WriteTemplateHHA60",
-            "Templater_WriteTemplateHHA63",
-            "Templater_SymbolTolerance",
             "Templater_AuxView"
             ]
         #- create a new toolbar with these commands
@@ -80,7 +66,6 @@ class Templater (Workbench):
         self.appendMenu("Templater", self.list)
         #- appends a submenu to an existing menu
         #self.appendMenu(["Templater", "My submenu"], self.list)
-        #self.appendMenu(["Templater", "Mein submenu", "Bein"], self.list)
 
     def Activated(self):
         """This function is executed whenever the workbench is activated"""
