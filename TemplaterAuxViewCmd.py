@@ -289,7 +289,7 @@ if AnSvgToolset.isGuiLoaded():
     from FreeCAD import Gui
     from PySide import QtCore
     from PySide.QtGui import QGroupBox
-    from PySide.QtWidgets import (QLabel, QCheckBox, QLineEdit)
+    from PySide.QtWidgets import (QGridLayout, QLabel, QCheckBox, QLineEdit)
 
     ##########################################################################################################
     # View Provider
