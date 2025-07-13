@@ -37,7 +37,9 @@ import os    # built-in modules
 import math  # to use some predefined conversions
 import AnSvgToolset
 from TechDrawTools import TDToolsUtil
-from PySide import QtGui, QtCore
+from PySide import QtCore
+from PySide.QtGui import QGroupBox
+from PySide.QtWidgets import (QGridLayout, QLabel, QCheckBox, QLineEdit)
 
 icons_path = AnSvgToolset.icons_path
 symbols_path = AnSvgToolset.symbols_path
@@ -287,9 +289,6 @@ def mainSection():
 
 if AnSvgToolset.isGuiLoaded():
     from FreeCAD import Gui
-    from PySide import QtCore
-    from PySide.QtGui import QGroupBox
-    from PySide.QtWidgets import (QGridLayout, QLabel, QCheckBox, QLineEdit)
 
     ##########################################################################################################
     # View Provider
