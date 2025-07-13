@@ -32,7 +32,7 @@ I have tried to follow this naming rule:
 
 # imports and constants
 import FreeCAD
-import Templator
+#import Templator
 import os    # built-in modules
 import math  # to use some predefined conversions
 import AnSvgToolset
@@ -326,4 +326,4 @@ if AnSvgToolset.isGuiLoaded():
         def IsActive(self):
             return True
 
-    Gui.addCommand("Templator_AuxView", AuxViewCommandClass())
+    Gui.addCommand("Templater_AuxView", AuxViewCommandClass())
