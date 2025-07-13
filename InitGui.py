@@ -55,7 +55,7 @@ class Templater (Workbench):
         #- import here all the needed files that create your FreeCAD commands
         import os.path
         import SvgToolkit
-        import AuxView
+        import TemplaterAuxViewCmd
         #- a list of command names created in the line above
         self.list = [
             "Templater_AuxView"
