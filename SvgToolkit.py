@@ -36,9 +36,7 @@ I have tried to follow this naming rule:
 import time, os
 import FreeCAD
 from PySide import QtCore
-from PySide.QtGui import (QAction, QGroupBox, QMessageBox)
-from PySide.QtWidgets import (QGridLayout, QLabel, QComboBox, QDoubleSpinBox)
-                             #QLineEdit, QDialog, QPushButton)
+from PySide.QtGui import QMessageBox
 
 mod_path = os.path.dirname(__file__)
 icons_path = os.path.join(mod_path, "Resources", "icons")
@@ -764,7 +762,7 @@ def getAktiveDocument():
         exit()
     return ado
 
-def getTemplatePath(template_name = "myTemplate.svg"):
+def getTemplatePath(template_name = "NewTemplate.svg"):
     '''
     Defines the path to the folder to store the template file
     including the file name.
