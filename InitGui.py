@@ -56,9 +56,11 @@ class Templater (Workbench):
         import os.path
         import SvgToolkit
         import TemplaterAuxViewCmd
+        import TemplaterTemplateWikiCmd
         #- a list of command names created in the line above
         self.list = [
             "Templater_AuxView"
+            "Templater_NewTemplateWiki"
             ]
         #- create a new toolbar with these commands
         self.appendToolbar("Templater Commands", self.list)
