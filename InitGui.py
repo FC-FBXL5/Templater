@@ -59,7 +59,7 @@ class Templater (Workbench):
         import TemplaterTemplateWikiCmd
         #- a list of command names created in the line above
         self.list = [
-            "Templater_AuxView"
+            "Templater_AuxView",
             "Templater_NewTemplateWiki"
             ]
         #- create a new toolbar with these commands
