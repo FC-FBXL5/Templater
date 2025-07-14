@@ -39,7 +39,6 @@ import FreeCAD
 import FreeCADGui
 import os     # built-in modules
 import SvgToolkit
-import TitleBlockHHA63
 from PySide import QtCore
 from PySide.QtGui import (QAction, QGroupBox, QMessageBox)
 from PySide.QtWidgets import (QGridLayout, QLabel, QComboBox,
@@ -238,7 +237,7 @@ if SvgToolkit.isGuiLoaded():
             #- Add a Box container to group widgets
             self.groupBox = QGroupBox("Tempate Properties")
             #- Add a grid to order widgets
-            self.grid = QGridLayout("Hein") # instantiates a QGridLayout
+            self.grid = QGridLayout() # instantiates a QGridLayout
             self.groupBox.setLayout(self.grid) # puts the grid inside the groupBox
             #- Add some labels to the grid
             self.label_ink = QLabel("Color of text entries")
