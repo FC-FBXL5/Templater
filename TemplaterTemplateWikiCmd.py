@@ -63,7 +63,7 @@ def getActiveDocument():
     """
     ado = FreeCAD.activeDocument()
     if ado is None:
-        QMessageBox.warning(None, "", "Es ist kein aktives Dokument vorhanden!")
+        QMessageBox.warning(None, "", "No active document available!")
         #exit()
     return ado
 
@@ -242,8 +242,8 @@ if SvgToolkit.isGuiLoaded():
             #- Add some labels to the grid
             self.label_ink = QLabel("Color of text entries")
             self.grid.addWidget(self.label_ink, 0, 0)
-            self.label_warning = QLabel("Selecting a sheet format \n"+
-                "resets the number \nof BOM rows to 0"
+            self.label_warning = QLabel("Don't forget to save, close, and " +
+                "reopen between different templates"
                 )
             self.grid.addWidget(self.label_warning, 1, 0, 1, -1)
 
