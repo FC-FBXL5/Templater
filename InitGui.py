@@ -38,13 +38,22 @@ import SvgToolkit
 TemplaterPath = SvgToolkit.mod_path
 TemplaterIconPath = SvgToolkit.icons_path
 
+translate = FreeCAD.Qt.translate
+
+def QT_TRANSLATE_NOOP(context, text):
+    return text
+
 class Templater (Workbench):
     global TemplaterIconPath
     global TemplaterPath
+    global translate
 
-    MenuText = "Templater"
-    ToolTip = "Some tools to create auxiliary views, templates, and symbols"
-    Icon = os.path.join(TemplaterIconPath, "Templater.svg")
+    MenuText = translate("Templater", "Templater")
+    ToolTip = translate(
+        "Templater",
+        "Some tools to create auxiliary views, templates, and symbols"
+        )
+    Icon = os.path.join(TemplaterIconPath, "TemplaterWorkbench.svg")
 
     def Initialize(self):
         """
@@ -63,11 +72,11 @@ class Templater (Workbench):
             "Templater_NewTemplateWiki"
             ]
         #- create a new toolbar with these commands
-        self.appendToolbar("Templater Commands", self.list)
+        self.appendToolbar(translate("Templater", "Templater"), self.list)
         #- create a new menu
         self.appendMenu("Templater", self.list)
         #- appends a submenu to an existing menu
-        #self.appendMenu(["Templater", "My submenu"], self.list)
+        #self.appendMenu(translate("Templater", "Templater"), self.list)
 
     def Activated(self):
         """This function is executed whenever the workbench is activated"""
@@ -81,7 +90,7 @@ class Templater (Workbench):
         """This function is executed whenever the user right-clicks on screen"""
         # "recipient" will be either "view" or "tree"
         #- add commands to the context menu
-        self.appendContextMenu("Templater", self.list)
+        self.appendContextMenu(translate("Templater", "Templater"), self.list)
 
     def GetClassName(self):
         # This function is mandatory if this is a full Python workbench
