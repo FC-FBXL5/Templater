@@ -37,7 +37,7 @@ I have tried to follow this naming rule:
 # imports and constants
 import FreeCAD
 import FreeCADGui
-import os     # built-in modules
+import os
 import SvgToolkit
 from PySide import QtCore
 from PySide.QtGui import (QAction, QGroupBox, QMessageBox)
@@ -51,11 +51,9 @@ from SvgToolkit import (
     ediText
     )
 
-#from PySide.QtGui import QMessageBox
-
 icons_path = SvgToolkit.icons_path
 mod_path = SvgToolkit.mod_path
-file_path = os.path.join(mod_path, "Resources", "WikiTemplate.svg")
+file_path = os.path.join(mod_path, "Resources", "TemplateWiki.svg")
 
 def getActiveDocument():
     """
@@ -228,23 +226,19 @@ if SvgToolkit.isGuiLoaded():
             self.initUI()
 
         def initUI(self):
-            # Sets some default values and places the widgets
-            #- Get the language value from the FreeCAD parameters
-            parameter_path = FreeCAD.ParamGet("User parameter:BaseApp" +
-                "/Preferences/General")
-            app_language = parameter_path.GetString("Language")
+            """Sets some default values and places the widgets"""
+
+            self.setWindowTexts()
 
             #- Add a Box container to group widgets
-            self.groupBox = QGroupBox("Tempate Properties")
+            self.groupBox = QGroupBox(self.text_panel)
             #- Add a grid to order widgets
             self.grid = QGridLayout() # instantiates a QGridLayout
             self.groupBox.setLayout(self.grid) # puts the grid inside the groupBox
             #- Add some labels to the grid
-            self.label_ink = QLabel("Color of text entries")
+            self.label_ink = QLabel(self.text_ink)
             self.grid.addWidget(self.label_ink, 0, 0)
-            self.label_warning = QLabel("Don't forget to save, close, and " +
-                "reopen between different templates"
-                )
+            self.label_warning = QLabel(self.text_warning)
             self.grid.addWidget(self.label_warning, 1, 0, 1, -1)
 
             #- Create some result containers and set default values
@@ -253,15 +247,27 @@ if SvgToolkit.isGuiLoaded():
             # Add some input widgets
 
             #- Set up a CheckBox - Ink
-            self.checkBox_ink = QCheckBox("Ink-blue")
-            self.checkBox_ink.setToolTip("Toggles the color of text entries" +
-                "between black (default) and ink-blue")
+            self.checkBox_ink = QCheckBox(self.text_color)
+            self.checkBox_ink.setToolTip(self.tooltip_ink)
             self.checkBox_ink.setChecked(False)
             self.checkBox_ink.stateChanged.connect(self.on_checkbox_changed)
             self.grid.addWidget(self.checkBox_ink, 0, 1)
 
             # Show the QGroupBox
             self.form = self.groupBox
+
+        def setWindowTexts(self):
+
+            self.text_ink      = translate("Templator","Color of text entries")
+            self.text_color    = translate("Templator","Ink-blue")
+            self.text_panel    = translate("Templator", "Template settings")
+            self.text_warning  = translate("Templator",
+                "Don't forget to Save, Close \n"
+                "and Reopen the file!"
+                )
+            self.tooltip_ink      = translate("Templator",
+                "Check for ink blue text entries"
+                )
 
         def on_checkbox_changed(self, value):
             '''Toggles the color of editable texts'''
