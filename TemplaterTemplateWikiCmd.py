@@ -51,6 +51,8 @@ from SvgToolkit import (
     ediText
     )
 
+translate = FreeCAD.Qt.translate
+
 icons_path = SvgToolkit.icons_path
 mod_path = SvgToolkit.mod_path
 file_path = os.path.join(mod_path, "Resources", "TemplateWiki.svg")
@@ -258,14 +260,14 @@ if SvgToolkit.isGuiLoaded():
 
         def setWindowTexts(self):
 
-            self.text_ink      = translate("Templator","Color of text entries")
-            self.text_color    = translate("Templator","Ink-blue")
-            self.text_panel    = translate("Templator", "Template settings")
-            self.text_warning  = translate("Templator",
+            self.text_ink      = translate("Templater","Color of text entries")
+            self.text_color    = translate("Templater","Ink-blue")
+            self.text_panel    = translate("Templater", "Template settings")
+            self.text_warning  = translate("Templater",
                 "Don't forget to Save, Close \n"
                 "and Reopen the file!"
                 )
-            self.tooltip_ink      = translate("Templator",
+            self.tooltip_ink      = translate("Templater",
                 "Check for ink blue text entries"
                 )
 
