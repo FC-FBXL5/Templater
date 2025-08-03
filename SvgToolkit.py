@@ -87,27 +87,22 @@ def svgRect(width, height, x, y):
     """
     Generates an svg-instruction to draw a rectangle with the given values
     """
-    svg_line = (
-        "<rect width=\"" + width + "\" height=\"" + height + "\" x=\"" + x
-        + "\" y=\"" + y + "\" />"
-        )
-    return svg_line
+    svg_line = "<rect width=\"{W}\" height=\"{H}\" x=\"{X}\" y=\"{Y}\" />"
+    return svg_line.format(W = width, H = height, X = x, Y = y)
 
 def svgPath(x1, y1, x2, y2):
     """
     Generates an svg-instruction to draw a path element (line)
     with the given values
     """
-    #if x2 == "v" or x2 == "V" or x2 == "h" or x2 == "H":
     if x2 in ["v", "V", "h", "H"]:
-        svg_line = (
-            "<path d=\"m " + x1 + "," + y1 + " " + x2 + " " + y2 + "\" />"
-            )
+		# to draw a horizontal/vertical line
+		# either relative or absolute
+        svg_line = "<path d=\"m {X},{Y} {C} {D}\" />"
     else:
-        svg_line = (
-            "<path d=\"m " + x1 + "," + y1 + " l " + x2 + "," + y2 + "\" />"
-            )
-    return svg_line
+		# to draw a Line to a second point, only relative
+        svg_line = "<path d=\"m {X},{Y} l {C},{D}\" />"
+    return svg_line.format(X = x1, Y = y1, C = x2, D = y2)
 
 def svgText(x, y, str_value, str_angle = "0"):
     """
@@ -115,13 +110,11 @@ def svgText(x, y, str_value, str_angle = "0"):
     Optional str_angle enables vertical and arbitrarily rotated texts
     """
     if str_angle == "0":
-        svg_line = (
-            "<text x=\"" + x + "\" y=\"" + y + "\">" + str_value + "</text>"
-            )
+        svg_line = "<text x=\"{X}\" y=\"{Y}\">{SV}</text>"
     else:
         svg_line = (
-            "<text x=\"" + x + "\" y=\"" + y + "\" transform=\"rotate("
-            + str_angle + "," + x + "," + y + ")\">" + str_value + "</text>"
+            "<text x=\"{X}\" y=\"{Y}\" transform=\"rotate({SA}," +
+            "{X},{Y})\">{SV}</text>"
             )
     return svg_line
 
@@ -135,14 +128,14 @@ def ediText(entry_name, x, y, str_value, str_angle="0"):
 
     if str_angle == "0":
         svg_line = (
-            "<text freecad:editable=\"" + entry_name + afk + "\" x=\"" + x
-            + "\" y=\"" + y + "\"> <tspan>" + str_value + "</tspan> </text>"
+            "<text freecad:editable=\"{EN}{AF}\"" +
+            " x=\"{X}\" y=\"{Y}\"> <tspan>{SV}</tspan> </text>"
             )
     else:
         svg_line = (
-            "<text freecad:editable=\"" + entry_name + afk + "\" x=\"" + x
-            + "\" y=\"" + y + "\" transform=\"rotate(" + str_angle + ","
-            + x + "," + y + ")\"> <tspan>" + str_value + "</tspan> </text>"
+            "<text freecad:editable=\"{EN}{AF}\"" +
+            " x=\"{X}\" y=\"{Y}\" transform=\"rotate({SA}," +
+            "{X},{Y})\"> <tspan>{SV}</tspan> </text>"
             )
     return svg_line
 
