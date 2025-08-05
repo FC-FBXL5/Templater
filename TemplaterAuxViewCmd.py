@@ -35,14 +35,14 @@ import FreeCAD
 #import Templator
 import os    # built-in modules
 import math  # to use some predefined conversions
-import AnSvgToolset
+import SvgToolkit
 from TechDrawTools import TDToolsUtil
 from PySide import QtCore
 from PySide.QtGui import QGroupBox
 from PySide.QtWidgets import (QGridLayout, QLabel, QCheckBox, QLineEdit)
 
-icons_path = AnSvgToolset.icons_path
-symbols_path = AnSvgToolset.symbols_path
+icons_path = SvgToolkit.icons_path
+symbols_path = SvgToolkit.symbols_path
 
 class TaskAuxView():
     '''Provides the TechDraw AuxView Task Dialog.'''
@@ -287,7 +287,7 @@ def mainSection():
 # Gui code
 ##########################################################################################################
 
-if AnSvgToolset.isGuiLoaded():
+if SvgToolkit.isGuiLoaded():
     from FreeCAD import Gui
 
     ##########################################################################################################
