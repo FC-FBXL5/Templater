@@ -67,14 +67,16 @@ def autoFillKey(text_name = ""):
     """
     # Autofill key words: "author", "date", "page_number", "page_count", "scale",
     # "sheet", "title", "owner", "organization", "organisation", "company"
-    AUTO_DICT = {"Author":"author",\
-                 "AuDate":"date",\
-                 "Page":"page_number",\
-                 "Pages":"page_count",\
-                 "Scale":"scale",\
-                 "Sheets":"sheet",\
-                 "Drawing Title":"title",\
-                 "Owner":"owner",}
+    AUTO_DICT = {
+	"Author":"author",
+        "AuDate":"date",
+        "Page":"page_number",
+        "Pages":"page_count",
+        "Scale":"scale",
+        "Sheets":"sheet",
+        "Drawing Title":"title",
+        "Owner":"owner"
+    	}
     auto_fill = ""
     for item in AUTO_DICT:
         if text_name == item:
@@ -116,7 +118,7 @@ def svgText(x, y, str_value, str_angle = "0"):
             "<text x=\"{X}\" y=\"{Y}\" transform=\"rotate({SA}," +
             "{X},{Y})\">{SV}</text>"
             )
-    return svg_line
+    return svg_line.format(X = x1, Y = y1, SV = str_value, SA = str_angle)
 
 def ediText(entry_name, x, y, str_value, str_angle="0"):
     """
@@ -137,7 +139,9 @@ def ediText(entry_name, x, y, str_value, str_angle="0"):
             " x=\"{X}\" y=\"{Y}\" transform=\"rotate({SA}," +
             "{X},{Y})\"> <tspan>{SV}</tspan> </text>"
             )
-    return svg_line
+    return svg_line.format(
+        EN = entry_name, AF = afk, X = x, Y = y, SV = str_value, SA = str_angle
+        )
 
 def createSvgFile(file_path):
     """
