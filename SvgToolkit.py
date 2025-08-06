@@ -118,7 +118,7 @@ def svgText(x, y, str_value, str_angle = "0"):
             "<text x=\"{X}\" y=\"{Y}\" transform=\"rotate({SA}," +
             "{X},{Y})\">{SV}</text>"
             )
-    return svg_line.format(X = x1, Y = y1, SV = str_value, SA = str_angle)
+    return svg_line.format(X = x, Y = y, SV = str_value, SA = str_angle)
 
 def ediText(entry_name, x, y, str_value, str_angle="0"):
     """
