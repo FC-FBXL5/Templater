@@ -137,7 +137,7 @@ stroke-linecap:miter;stroke-miterlimit:4\">\n")
     t.write(loi + "<g id=\"titleblock-text-non-editable\"\n")
     loi = levelOfIndentation(5)
     t.write(loi + "style=\"font-family:osifont;font-size:5.0;\
-fill:#000;text-anchor:start;\">\n")
+fill:#000;text-anchor:start\">\n")
     loi = levelOfIndentation(6)
     t.write(loi + svgText("  4.5","-43.5 ","Some static text") + "\n")
     t.write(loi + svgText("  4.5","-13.5 ","More static text") + "\n")
