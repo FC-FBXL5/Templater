@@ -166,8 +166,7 @@ def startSvg(file_path, sheet_width = "20", sheet_height = "16"):
     #- Namespace declarations
     loi = levelOfIndentation(1)
     t.write(loi + "xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"\n")
-    t.write(loi + "xmlns:freecad=\"https://www.freecad.org/wiki\
-/index.php?title=Svg_Namespace\"\n")
+    t.write(loi + "xmlns:freecad=\"https://wiki.freecad.org/Svg_Namespace\"\n")
     #- Format definition
     t.write(loi + "width =\"" + sheet_width + "mm\"\n")
     t.write(loi + "height=\"" + sheet_height + "mm\"\n")
