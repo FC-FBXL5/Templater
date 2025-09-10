@@ -266,6 +266,7 @@ def sheetFrameOffsets(top = 5, bottom = 5, left = 5, right = 5):
 def createFrame(file_path, sheet_x, sheet_y):
     """
     Creates rectangles for sheet frame and drawing area
+	(older version used for the wiki example)
     """
     t = open(file_path, "a", encoding="utf-8")
     loi = levelOfIndentation(2)
@@ -311,6 +312,84 @@ stroke-linecap:round\">\n")
     #- frame dimensions
     frame_width = str(int(sheet_x) - dLeft - dRight + sLeft + sRight)
     frame_height = str(int(sheet_y) - dTop - dBottom + sTop + sBottom)
+    #- frame rectangle
+    t.write(loi + svgRect(frame_width, frame_height, frame_x, frame_y) + "\n")
+    loi = levelOfIndentation(2)
+    t.write(loi + "</g>\n\n")
+    t.close
+
+def createFrames(file_path, sheet_size, da_offsets, if_offsets):
+    """
+    Creates cutting marks and rectangles for index frame and drawing area
+    """
+    t = open(file_path, "a", encoding="utf-8")
+    loi = levelOfIndentation(2)
+    t.write(loi + "<g id=\"cutting-marks\"\n")
+    loi = levelOfIndentation(3)
+    t.write(loi + "style=\"fill:#000;stroke:none\">\n")
+    loi = levelOfIndentation(4)
+    sheet_x = sheet_size[0]
+    sheet_y = sheet_size[1]
+    t.write(loi + "<path d=\"m 0,0 h 10 v 5 h -5 v 5 h -5 z\"/>\n")
+    t.write(loi + "<path d=\"m {},0 h -10 v 5 h 5 v 5 h 5 z\"/>\n".format(
+        sheet_x
+        ))
+    t.write(loi +
+        "<path d=\"m {},{} h -10 v -5 h 5 v -5 h 5 z\"/>\n".format(
+            sheet_x, sheet_y
+            ))
+    t.write(loi +
+        "<path d=\"m 0,{} h 10 v -5 h -5 v -5 h -5 z\"/>\n".format(
+            sheet_y
+            ))
+    loi = levelOfIndentation(2)
+    t.write(loi + "</g>\n")
+    t.write(loi + "<g id=\"drawing-area\"\n")
+    loi = levelOfIndentation(3)
+    t.write(loi + "style=\"fill:none;stroke:#000;stroke-width:0.7;\
+stroke-linecap:square\">\n")
+    #- set offsets for drawing area and index frame
+    da_top    = da_offsets[0]
+    da_bottom = da_offsets[1]
+    da_left   = da_offsets[2]
+    da_right  = da_offsets[3]
+    if_top    = if_offsets[0]
+    if_bottom = if_offsets[1]
+    if_left   = if_offsets[2]
+    if_right  = if_offsets[3]
+    #- upper left corner of drawing area
+    frame_x = str(da_left)
+    frame_y = str(da_top)
+    #- lower right corner (pre-use of dimension variables)
+    frame_width = str(int(sheet_x) - da_right)
+    frame_height = str(int(sheet_y) - da_bottom)
+    loi = levelOfIndentation(4)
+    t.write(loi + "<!-- Drawing area {} {} {} {} -->\n".format(
+        frame_x, frame_y, frame_width, frame_height
+        ))
+    #- frame dimensions
+    frame_width = str(int(sheet_x) - da_left - da_right)
+    frame_height = str(int(sheet_y) - da_top - da_bottom)
+    #- frame rectangle
+    t.write(loi + svgRect(frame_width, frame_height, frame_x, frame_y) + "\n")
+    loi = levelOfIndentation(2)
+    t.write(loi + "</g>\n")
+    t.write(loi + "<g id=\"index-frame\"\n")
+    loi = levelOfIndentation(3)
+    t.write(loi + "style=\"fill:none;stroke:#000;stroke-width:0.25;\
+stroke-linecap:square\">\n")
+    #- upper left corner of outer frame, sheet frame
+    frame_x = str(da_left - if_left)
+    frame_y = str(da_top - if_top)
+    #- lower right corner
+    frame_width = str(int(sheet_x) - da_right + if_right)
+    frame_height = str(int(sheet_y) - da_bottom + if_bottom)
+    t.write(loi + "<!-- Sheet frame {} {} {} {} -->\n".format(
+        frame_x, frame_y, frame_width, frame_height
+        ))
+    #- frame dimensions
+    frame_width = str(int(sheet_x) - da_left - da_right + if_left + if_right)
+    frame_height = str(int(sheet_y) - da_top - da_bottom + if_top + if_bottom)
     #- frame rectangle
     t.write(loi + svgRect(frame_width, frame_height, frame_x, frame_y) + "\n")
     loi = levelOfIndentation(2)
