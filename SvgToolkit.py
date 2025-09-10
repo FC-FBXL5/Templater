@@ -399,6 +399,7 @@ stroke-linecap:square\">\n")
 def createDecoration(file_path, sheet_width, sheet_height, tilt = "0"):
     """
     Creates indices, puncher mark, and folding marks
+	(older variant)
     """
     t = open(file_path, "a", encoding="utf-8")
     loi = levelOfIndentation(2)
@@ -663,23 +664,290 @@ stroke-linecap:miter;stroke-miterlimit:4\">\n")
     t.write(loi + "</g>\n\n")
     t.close
 
-def createFreecadLogo(file_path, sheet_width, sheet_height):
+def createDecorations(
+    file_path, sheet_size, da_offsets, if_offsets, tilt = "0"
+    ):
     """
-    Creates a FreeCAD logo at a hard coded position
+    Creates indices, puncher mark, and folding marks
     """
-    #- set frame offsets
-    dOffsets = drawingAreaOffsets()
-    dBottom = dOffsets[1]
-    dRight  = dOffsets[3]
+    t = open(file_path, "a", encoding="utf-8")
+    loi = levelOfIndentation(2)
+    t.write(loi + "<g id=\"index-separators\"\n")
+    loi = levelOfIndentation(3)
+    t.write(loi + "style=\"fill:none;stroke:#000;stroke-width:0.25;\
+stroke-linecap:round\">\n")
+    #- extract some values
+    sheet_width  = sheet_size[0]
+    sheet_height = sheet_size[1]
 
+    da_top    = da_offsets[0]
+    da_bottom = da_offsets[1]
+    da_left   = da_offsets[2]
+    da_right  = da_offsets[3]
+    if_top    = if_offsets[0]
+    if_bottom = if_offsets[1]
+    if_left   = if_offsets[2]
+    if_right  = if_offsets[3]
+
+    frame_width  = str(int(sheet_width) - da_left - da_right)
+    frame_height = str(int(sheet_height) - da_top - da_bottom)
+
+    #- starting point values of center lines
+    index_center = str(int(frame_width) / 2 + da_left)
+    index_middle = str(int(frame_height) / 2 + da_top)
+    index_left   = str(da_left + 5)
+    index_right  = str(int(frame_width) + da_left - 5)
+    index_upper  = str(da_top + 5)
+    index_lower  = str(int(frame_height) + da_top - 5)
+
+    #- centre and middle markings of drawing area
+    loi = levelOfIndentation(4)
+    if sheet_width == "210": # format == "DIN-A4":
+        index_left = str(da_left)
+        t.write(loi + svgPath(index_left, index_middle, "h", "-15") + "\n")
+    elif sheet_width == "297": # format == "DIN-A4-":
+        index_upper = str(da_top)
+        t.write(loi + svgPath(index_center, index_upper, "v", "-15") + "\n")
+    elif sheet_width == "420": # format == "DIN-A3":
+        index_left = str(da_left+5)
+        t.write(loi + svgPath(index_center, index_upper, "v", "-10") + "\n")
+        t.write(loi + svgPath(index_center, index_lower, "v", " 10")+  "\n")
+        t.write(loi + svgPath(index_left, index_middle, "h", "-20") + "\n")
+        t.write(loi + svgPath(index_right, index_middle, "h", " 10") + "\n")
+    else :
+        t.write(loi + svgPath(index_center, index_upper, "v", "-10") + "\n")
+        t.write(loi + svgPath(index_center, index_lower, "v", " 10") + "\n")
+        t.write(loi + svgPath(index_left, index_middle, "h", "-10") + "\n")
+        t.write(loi + svgPath(index_right, index_middle, "h", " 10") + "\n")
+
+    #- starting point values of separator lines
+    index_left  = str(da_left)
+    index_right = str(int(frame_width) + da_left)
+    index_upper = str(da_top)
+    index_lower = str(int(frame_height) + da_top)
+
+    #- set number of horizontal and vertical indices
+    # this needs to be extended for American formats
+    if sheet_width == "420": # format == "DIN-A3":
+        index_count_x = 8
+        index_count_y = 6
+    elif sheet_width == "594": # format == "DIN-A2":
+        index_count_x = 12
+        index_count_y = 8
+    elif sheet_width == "841": # format == "DIN-A1":
+        index_count_x = 16
+        index_count_y = 12
+    elif sheet_width == "1189": # format == "DIN-A0":
+        index_count_x = 24
+        index_count_y = 16
+    else :
+        index_count_x = 0
+        index_count_y = 0
+
+    #- index_center and index_middle contain strings but floating point
+    #   numbers are needed to calculate
+    float_center = int(frame_width) / 2 + da_left
+    float_middle = int(frame_height) / 2 + da_top
+
+    #- horizontal index separators
+    max = int(index_count_x / 2 - 1)
+    for value in range(0, max):
+        index_x = str(float_center + (value + 1) * 50)
+        t.write(loi + svgPath(index_x, index_upper, "v", " -5") + "\n")
+        t.write(loi + svgPath(index_x, index_lower, "v", "  5") + "\n")
+        index_x = str(float_center - (value + 1) * 50)
+        t.write(loi + svgPath(index_x, index_upper, "v", " -5") + "\n")
+        t.write(loi + svgPath(index_x, index_lower, "v", "  5") + "\n")
+
+    #- vertical index separators
+    max = int(index_count_y / 2 - 1)
+    for value in range(0, max):
+        index_y = str(float_middle + (value + 1) * 50)
+        t.write(loi + svgPath(index_left, index_y, "h", " -5") + "\n")
+        t.write(loi + svgPath(index_right, index_y, "h", "  5") + "\n")
+        index_y = str(float_middle - (value + 1) * 50)
+        t.write(loi + svgPath(index_left, index_y, "h", " -5") + "\n")
+        t.write(loi + svgPath(index_right, index_y, "h", "  5") + "\n")
+
+    loi = levelOfIndentation(2)
+    t.write(loi + "</g>\n")
+    if sheet_width in ["210", "297"]:
+        pass
+    else:
+        t.write(loi + "<g id=\"indices\"\n")
+        loi = levelOfIndentation(3)
+        t.write(loi + "style=\"font-size:3.5;text-anchor:middle;fill:#000000;\
+font-family:osifont\">\n")
+
+        #- position point values of indices for upright characters
+        index_left = str(da_left - if_left / 2)
+        index_right = str(int(frame_width) + da_left + if_right / 2)
+        index_upper = str(da_top - 1)
+        index_lower = str(int(frame_height) + da_top + if_bottom - 1)
+        if tilt != "0":
+            # Adapted values for upper and right indices rotated by 90° ccw
+            index_right = str(int(frame_width) + da_left + if_right - 1)
+            index_upper = str(da_top - if_top / 2)
+
+        loi = levelOfIndentation(4)
+        #- horizontal indices, numbers
+        max = int(index_count_x / 2)
+        for value in range(0, max):
+            index_x = str(float_center + value * 50 + 25)
+            t.write(loi + svgText(index_x, index_upper,
+                str(int(index_count_x / 2 + value + 1)), tilt) + "\n"
+                )
+            t.write(loi + svgText(index_x, index_lower,
+                str(int(index_count_x / 2 + value + 1))) + "\n"
+                )
+            index_x = str(float_center - value * 50 - 25)
+            t.write(loi + svgText(index_x, index_upper,
+                str(int(index_count_x / 2 - value)), tilt) + "\n"
+                )
+            t.write(loi + svgText(index_x, index_lower,
+                str(int(index_count_x / 2 - value))) + "\n"
+                )
+
+        #- vertical indices, letters
+        max = int(index_count_y / 2)
+        for value in range(0, max):
+            index_y = str(float_middle + value * 50 + 25)
+            if int(index_count_y / 2 + value + 1) > 9 :
+                # This avoids the letter J
+                t.write(loi + svgText(index_left, index_y,
+                    chr(64 + int(index_count_y / 2 + value + 2))) + "\n"
+                    )
+                t.write(loi + svgText(index_right, index_y,
+                    chr(64 + int(index_count_y / 2 + value + 2)), tilt) + "\n"
+                    )
+            else :
+                t.write(loi + svgText(index_left, index_y,
+                    chr(64 + int(index_count_y / 2 + value + 1))) + "\n"
+                    )
+                t.write(loi + svgText(index_right, index_y,
+                    chr(64 + int(index_count_y / 2 + value + 1)), tilt) + "\n"
+                    )
+            # no J expected below
+            index_y = str(float_middle - value * 50 - 25)
+            t.write(loi + svgText(index_left, index_y,
+                chr(64 + int(index_count_y / 2 - value))) + "\n"
+                )
+            t.write(loi + svgText(index_right, index_y,
+                chr(64 + int(index_count_y / 2 - value)), tilt) + "\n"
+                )
+
+        loi = levelOfIndentation(2)
+        t.write(loi + "</g>\n\n")
+
+        #- puncher mark
+        t.write(loi + "<g id=\"puncher mark\"\n")
+        loi = levelOfIndentation(3)
+        t.write(loi + "style=\"fill:none;stroke:#b0b0b0;stroke-width:0.25;\
+stroke-linecap:miter;stroke-miterlimit:4\">\n")
+        loi = levelOfIndentation(4)
+        if sheet_width in ["1189", "841", "594"] : # A3 and A4 have extended middle markings
+            t.write(
+                loi + svgPath(str(da_left - if_left),
+                str(int(sheet_height) - (297 / 2)), "h", "-10") + "\n"
+                )
+        loi = levelOfIndentation(2)
+        t.write(loi + "</g>\n\n")
+
+        #- folding marks
+        t.write(loi + "<g id=\"folding marks\"\n")
+        loi = levelOfIndentation(3)
+        t.write(loi + "style=\"fill:none;stroke:#b0b0b0;stroke-width:0.25;\
+stroke-linecap:miter;stroke-miterlimit:4\">\n")
+        loi = levelOfIndentation(4)
+        if sheet_width == "420": # DIN-A3
+            t.write(loi + svgPath("125", str(da_top - if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("125",
+                str(int(sheet_height) - da_bottom + if_bottom),"v","  5")+"\n"
+                )
+            t.write(loi + svgPath("230", str(da_top - if_top), "v", "-5") + "\n")
+            t.write(loi + svgPath("230",
+                str(int(sheet_height) - da_bottom + if_bottom),"v","  5")+"\n"
+                )
+        elif sheet_width == "594": # DIN-A2
+            t.write(loi + svgPath("210", str(da_top-if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("210",
+                str(int(sheet_height) - da_bottom+if_bottom),"v","  5")+"\n"
+                )
+            t.write(loi + svgPath("402", str(da_top-if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("402",
+                str(int(sheet_height) - da_bottom + if_bottom),"v","  5")+"\n"
+                )
+            t.write(loi + svgPath("105", str(da_top-if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("  5", "123", "h", " -5") + "\n")
+            t.write(loi + svgPath(
+                str(int(sheet_width) - da_right + if_right), "123", "h",
+                "  5") + "\n"
+                )
+        elif sheet_width == "841": # DIN-A1
+            t.write(loi + svgPath("210", str(da_top-if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("210",
+                str(int(sheet_height) - da_bottom + if_bottom), "v", "  5") + "\n"
+                )
+            t.write(loi + svgPath("400", str(da_top-if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("400",
+                str(int(sheet_height) - da_bottom + if_bottom), "v", "  5") + "\n"
+                )
+            t.write(loi + svgPath("651", str(da_top-if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("651",
+                str(int(sheet_height) - da_bottom + if_bottom), "v", "  5") + "\n"
+                )
+            t.write(loi + svgPath("105", str(da_top-if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("  5", "297", "h", " -5") + "\n")
+            t.write(loi + svgPath(str(int(sheet_width) - da_right + if_right),
+                "297", "h", "  5") + "\n"
+                )
+        elif sheet_width == "1189": # DIN-A0
+            t.write(loi + svgPath("210", str(da_top - if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("210",
+                str(int(sheet_height) - da_bottom + if_bottom), "v", "  5") + "\n"
+                )
+            t.write(loi + svgPath("400", str(da_top - if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("400",
+                str(int(sheet_height) - da_bottom + if_bottom), "v", "  5") + "\n"
+                )
+            t.write(loi + svgPath("590", str(da_top - if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("590",
+                str(int(sheet_height) - da_bottom + if_bottom), "v", "  5") + "\n"
+                )
+            t.write(loi + svgPath("780", str(da_top - if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("780",
+                str(int(sheet_height) - da_bottom + if_bottom), "v", "  5") + "\n"
+                )
+            t.write(loi + svgPath("999", str(da_top - if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("999",
+                str(int(sheet_height) - da_bottom + if_bottom), "v", "  5") + "\n"
+                )
+            t.write(loi + svgPath("105", str(da_top - if_top), "v", " -5") + "\n")
+            t.write(loi + svgPath("  5", "247", "h", " -5") + "\n")
+            t.write(loi + svgPath(str(int(sheet_width) - da_right + if_right),
+                "247", "h", "  5") + "\n"
+                )
+            t.write(loi + svgPath("  5", "544", "h", " -5") + "\n")
+            t.write(loi + svgPath(str(int(sheet_width) - da_right + if_right),
+                "544", "h", "  5") + "\n"
+                )
+
+        loi = levelOfIndentation(2)
+        t.write(loi + "</g>\n\n")
+    t.close
+
+def createFreecadLogo(file_path, logo_position):
+    """
+    Creates a FreeCAD logo at a given position
+    """
     t=open(file_path,"a", encoding="utf-8")
     loi = levelOfIndentation(2)
     t.write(loi + "<g id=\"freecad-logo\"\n")
     loi = levelOfIndentation(3)
     t.write(loi + "fill-rule=\"evenodd\"\n")
     #- Position from lower right corner of the drawing area
-    st_x=int(sheet_width)  - dRight - 176.5
-    st_y=int(sheet_height) - dBottom -  20
+    st_x = logo_position[0]
+    st_y = logo_position[1]
     t.write(loi + "transform=\"translate("+str(st_x)+","+str(st_y)+") scale(0.08)\">\n")
     loi = levelOfIndentation(4)
     t.write(loi + "<path fill=\"#FF585D\"\n")
@@ -717,15 +985,11 @@ def createFreecadLogo(file_path, sheet_width, sheet_height):
     t.write(loi + "</g>\n\n")
     t.close
 
-def createProjectionSymbol(file_path, sheet_width, sheet_height):
+def createProjectionSymbol(file_path, proj_symb_position):
     """
     Creates a symbol for the projection method in the title block
-    at a hard coded position
+    at a given position
     """
-    #- set frame offsets
-    dOffsets = drawingAreaOffsets()
-    dBottom = dOffsets[1]
-    dRight  = dOffsets[3]
     # order top and side symbols
     if projectionGroupAngle() == 1:
         # Third angle projection
@@ -745,8 +1009,8 @@ def createProjectionSymbol(file_path, sheet_width, sheet_height):
     t.write(loi + "stroke-linecap=\"round\"\n")
     t.write(loi + "stroke-linejoin=\"round\"\n")
     t.write(loi + "fill=\"none\"\n")
-    st_x=int(sheet_width) - dRight - 132
-    st_y=int(sheet_height)- dBottom - 17.5
+    st_x = proj_symb_position[0]
+    st_y = proj_symb_position[1]
     t.write(loi + "transform=\"translate(" + str(st_x) + "," + str(st_y) + ")\">\n")
     loi = levelOfIndentation(4)
     t.write(loi + "<g id=\"Top\"\n")
