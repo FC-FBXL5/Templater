@@ -68,7 +68,7 @@ def autoFillKey(text_name = ""):
     # Autofill key words: "author", "date", "page_number", "page_count", "scale",
     # "sheet", "title", "owner", "organization", "organisation", "company"
     AUTO_DICT = {
-	"Author":"author",
+		"Author":"author",
         "AuDate":"date",
         "Page":"page_number",
         "Pages":"page_count",
