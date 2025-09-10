@@ -65,7 +65,7 @@ class Templater (Workbench):
         import os.path
         import SvgToolkit
         import TemplaterAuxViewCmd
-        import TitleBlock_KG.py
+        import TitleBlock_KG
         import TemplaterTemplateWikiCmd
         import TemplaterTemplateMultiCmd
         #- a list of command names created in the line above
@@ -102,4 +102,5 @@ class Templater (Workbench):
 
 
 Gui.addWorkbench(Templater())
+
 
