@@ -405,7 +405,7 @@ class TemplateTaskPanel():
         self.grid.addWidget(self.radio_button_BM_1, 9, 0)
 
         self.radio_button_BM_2 = QRadioButton("BM_2")
-        self.radio_button_BM_2.setToolTip(self.tool_tip)
+        self.radio_button_BM_2.setToolTip(self.tool_tip_buttons)
         self.radio_button_BM_2.setChecked(False)
         self.radio_button_BM_2.hide()
         self.radio_button_BM_2.toggled.connect(
@@ -414,7 +414,7 @@ class TemplateTaskPanel():
         self.grid.addWidget(self.radio_button_BM_2, 10, 0)
 
         self.radio_button_BM_3 = QRadioButton("BM_3_adv")
-        self.radio_button_BM_3.setToolTip(self.tool_tip)
+        self.radio_button_BM_3.setToolTip(self.tool_tip_buttons)
         self.radio_button_BM_3.setChecked(False)
         self.radio_button_BM_3.hide()
         self.radio_button_BM_3.toggled.connect(
@@ -423,7 +423,7 @@ class TemplateTaskPanel():
         self.grid.addWidget(self.radio_button_BM_3, 11, 0)
 
         self.radio_button_BM_4 = QRadioButton("BM_4")
-        self.radio_button_BM_4.setToolTip(self.tool_tip)
+        self.radio_button_BM_4.setToolTip(self.tool_tip_buttons)
         self.radio_button_BM_4.setChecked(False)
         self.radio_button_BM_4.hide()
         self.radio_button_BM_4.toggled.connect(
@@ -432,7 +432,7 @@ class TemplateTaskPanel():
         self.grid.addWidget(self.radio_button_BM_4, 12, 0)
 
         self.radio_button_BM_5 = QRadioButton("BM_5_max")
-        self.radio_button_BM_5.setToolTip(self.tool_tip)
+        self.radio_button_BM_5.setToolTip(self.tool_tip_buttons)
         self.radio_button_BM_5.setChecked(False)
         self.radio_button_BM_5.hide()
         self.radio_button_BM_5.toggled.connect(
