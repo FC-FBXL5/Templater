@@ -35,6 +35,7 @@ I have tried to follow this naming rule:
 # imports and constants
 import time, os
 import FreeCAD
+from FreeCAD import Gui
 from PySide import QtCore
 from PySide.QtGui import QMessageBox
 
@@ -44,8 +45,8 @@ symbols_path = os.path.join(mod_path, "Resources", "symbols")
 translations_path = os.path.join(mod_path, "Resources", "translations")
 
 #- Adds the translations folder path to the default search paths
-FreeCADGui.addLanguagePath(translations_path)
-FreeCADGui.updateLocale()
+Gui.addLanguagePath(translations_path)
+Gui.updateLocale()
 
 def isGuiLoaded():
     if hasattr(FreeCAD, "GuiUp"):
