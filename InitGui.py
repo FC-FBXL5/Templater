@@ -35,8 +35,13 @@ import FreeCAD
 from FreeCAD import Gui
 import SvgToolkit
 
-TemplaterPath = SvgToolkit.mod_path
-TemplaterIconPath = SvgToolkit.icons_path
+templator_path = SvgToolkit.mod_path
+templator_icon_path = SvgToolkit.icons_path
+translations_path = SvgToolkit.translations_path
+
+#- Adds the translations folder path to the default search paths
+Gui.addLanguagePath(translations_path)
+Gui.updateLocale()
 
 translate = FreeCAD.Qt.translate
 
@@ -44,8 +49,8 @@ def QT_TRANSLATE_NOOP(context, text):
     return text
 
 class Templater (Workbench):
-    global TemplaterIconPath
-    global TemplaterPath
+    global templator_icon_path
+    global templator_path
     global translate
 
     MenuText = translate("Templater", "Templater")
@@ -53,7 +58,7 @@ class Templater (Workbench):
         "Templater",
         "Some tools to create auxiliary views, templates, and symbols"
         )
-    Icon = os.path.join(TemplaterIconPath, "TemplaterWorkbench.svg")
+    Icon = os.path.join(templator_icon_path, "TemplaterWorkbench.svg")
 
     def Initialize(self):
         """
@@ -102,5 +107,6 @@ class Templater (Workbench):
 
 
 Gui.addWorkbench(Templater())
+
 
 
