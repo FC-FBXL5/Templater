@@ -52,11 +52,11 @@ file_path = os.path.join(mod_path, "Resources", "TemplateMulti.svg")
 symbols_path = os.path.join(mod_path, "Resources", "symbols")
 
 TITLE_BLOCKS = {
-    "BM_1_min":os.path.join(symbols_path, "Titleblock_BM_1_minimal.svg"),
+    "BM_1_min":os.path.join(symbols_path, "Titleblock_BM_1_min.svg"),
     "BM_2":os.path.join(symbols_path, "Titleblock_BM_2.svg"),
-    "BM_3_adv":os.path.join(symbols_path, "Titleblock_BM_3_advanced.svg"),
+    "BM_3_adv":os.path.join(symbols_path, "Titleblock_BM_3_adv.svg"),
     "BM_4":os.path.join(symbols_path, "Titleblock_BM_4.svg"),
-    "BM_5_max":os.path.join(symbols_path, "Titleblock_BM_5_maximal.svg")
+    "BM_5_max":os.path.join(symbols_path, "Titleblock_BM_5_max.svg")
     }
 
 def getActiveDocument():
