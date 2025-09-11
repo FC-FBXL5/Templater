@@ -37,7 +37,7 @@ import FreeCAD
 import FreeCADGui
 import os
 import SvgToolkit
-import TitleBlockKG
+import TitleBlock_KG
 from PySide import QtCore
 from PySide.QtGui import (QAction, QGroupBox, QMessageBox, QPixmap)
 from PySide.QtWidgets import (QGridLayout, QLabel, QComboBox,
@@ -193,10 +193,10 @@ def insertGroups(
                 file_path, sheet_size, da_offsets, if_offsets
                 )
     if title_block:
-        tb_offsets = TitleBlockKG.createTitleBlock(
+        tb_offsets = TitleBlock_KG.createTitleBlock(
             file_path, sheet_size, da_offsets
             )
-        TitleBlockKG.createEditableText(file_path, sheet_x, sheet_y, ink)
+        TitleBlock_KG.createEditableText(file_path, sheet_x, sheet_y, ink)
         logo_position = tb_offsets[0]
         proj_symb_position = tb_offsets[1]
         Title_block_height = tb_offsets[2]
@@ -204,7 +204,7 @@ def insertGroups(
         SvgToolkit.createProjectionSymbol(file_path, proj_symb_position)
         if bom_rows == 0:
             return
-        TitleBlockKG.createBOMLines(file_path, sheet_x, sheet_y, bom_rows, ink)
+        TitleBlock_KG.createBOMLines(file_path, sheet_x, sheet_y, bom_rows, ink)
     return
 
 def createTemplate(
