@@ -41,6 +41,11 @@ from PySide.QtGui import QMessageBox
 mod_path = os.path.dirname(__file__)
 icons_path = os.path.join(mod_path, "Resources", "icons")
 symbols_path = os.path.join(mod_path, "Resources", "symbols")
+translations_path = os.path.join(mod_path, "Resources", "translations")
+
+#- Adds the translations folder path to the default search paths
+FreeCADGui.addLanguagePath(translations_path)
+FreeCADGui.updateLocale()
 
 def isGuiLoaded():
     if hasattr(FreeCAD, "GuiUp"):
