@@ -250,7 +250,7 @@ def getPageOfSelection(doc, b_view):
                         return each
     return False
 
-def getCcwAngle(vertex1,vertex2,view_rotation
+def getCcwAngle(vertex1,vertex2,view_rotation):
     """
     Creates 3D vectors to calculate the 2D angle towards the x direction of the
     base view which is parallel to the page view's x direction.
