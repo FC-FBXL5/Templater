@@ -1,25 +1,31 @@
 # -*- coding: utf-8 -*-
+# SPDX-License-Identifier: LGPL-2.1-or-later
 # ***************************************************************************
-# *   Copyright (c) 2025 FBXL5                                              *
 # *                                                                         *
-# *   This program is free software; you can redistribute it and/or modify  *
-# *   it under the terms of the GNU Lesser General Public License (LGPL)    *
-# *   as published by the Free Software Foundation; either version 2 of     *
-# *   the License, or (at your option) any later version.                   *
-# *   for detail see the LICENCE text file.                                 *
+# *   Copyright (c) 2025 FBXL5 available on the forum:                      *
+# *   https://forum.freecad.org/memberlist.php?mode=viewprofile&u=26761     *
 # *                                                                         *
-# *   This program is distributed in the hope that it will be useful,       *
-# *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-# *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-# *   GNU Library General Public License for more details.                  *
+# *   This file is part of FreeCAD.                                         *
 # *                                                                         *
-# *   You should have received a copy of the GNU Library General Public     *
-# *   License along with this program; if not, write to the Free Software   *
-# *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
-# *   USA                                                                   *
+# *   FreeCAD is free software: you can redistribute it and/or modify it    *
+# *   under the terms of the GNU Lesser General Public License as           *
+# *   published by the Free Software Foundation, either version 2.1 of the  *
+# *   License, or (at your option) any later version.                       *
+# *                                                                         *
+# *   FreeCAD is distributed in the hope that it will be useful, but        *
+# *   WITHOUT ANY WARRANTY; without even the implied warranty of            *
+# *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      *
+# *   Lesser General Public License for more details.                       *
+# *                                                                         *
+# *   You should have received a copy of the GNU Lesser General Public      *
+# *   License along with FreeCAD. If not, see                               *
+# *   <https://www.gnu.org/licenses/>.                                      *
 # *                                                                         *
 # ***************************************************************************
-"""This Makro creates an auxiliary view from 2 points in a base view"""
+"""
+This Tool creates an auxiliary view
+from 2 points or one edge selected in a base view
+"""
 
 
 """
@@ -32,7 +38,6 @@ I have tried to follow this naming rule:
 
 # imports and constants
 import FreeCAD
-#import Templator
 import os    # built-in modules
 import math  # to use some predefined conversions
 import SvgToolkit
@@ -41,11 +46,13 @@ from PySide import QtCore
 from PySide.QtGui import QGroupBox
 from PySide.QtWidgets import (QGridLayout, QLabel, QCheckBox, QLineEdit)
 
+translate = FreeCAD.Qt.translate
+
 icons_path = SvgToolkit.icons_path
 symbols_path = SvgToolkit.symbols_path
 
 class TaskAuxView():
-    '''Provides the TechDraw AuxView Task Dialog.'''
+    """Provides the TechDraw AuxView Task Dialog"""
     def __init__(self, new_view, new_symbol, dir_tag, view_tag):
 
         self.view = new_view
@@ -53,94 +60,186 @@ class TaskAuxView():
         self.dir_tag = dir_tag
         self.view_tag = view_tag
 
-        self.revert = False
+        self.setWindowTexts()
 
         #- Add a Box container to group widgets
-        self.groupBox = QGroupBox("GroupBox")
+        self.groupBox = QGroupBox(self.text_panel)
         #- Add a grid to order widgets
         self.grid = QGridLayout() # instantiates a QGridLayout
         self.groupBox.setLayout(self.grid) # puts the grid inside the groupBox
 
         #- Add some labels to the grid
-        self.label_marker = QLabel("Marker of the auxiliary view: ")
+        self.label_marker = QLabel(self.text_marker)
         self.grid.addWidget(self.label_marker, 0, 0)
-        self.label_direction = QLabel("Direction: ")
+        self.label_direction = QLabel(self.text_direction)
         self.grid.addWidget(self.label_direction, 1, 0)
 
         #- Set up a LineEdit - Marker
         self.lineEdit_marker = QLineEdit()
-        self.lineEdit_marker.setToolTip("Tool tip")
+        self.lineEdit_marker.setToolTip(self.tooltip_marker)
         self.lineEdit_marker.setText("X")
-        self.lineEdit_marker.textChanged.connect(self.on_lineEdit_marker)
+        self.lineEdit_marker.textChanged.connect(self.onLineEditMarker)
         self.grid.addWidget(self.lineEdit_marker, 0, 1)
 
-        #- Set up a CheckBox - Revert
-        self.checkBox_reverse = QCheckBox("Reverse direction")
-        self.checkBox_reverse.setToolTip("Reverts the view direction")
-        self.checkBox_reverse.setChecked(self.revert)
-        self.checkBox_reverse.stateChanged.connect(self.on_checkbox_changed)
+        #- Set up a CheckBox - Reverse
+        self.checkBox_reverse = QCheckBox(self.text_reverse)
+        self.checkBox_reverse.setToolTip(self.tooltip_reverse)
+        self.checkBox_reverse.setChecked(False)
+        self.checkBox_reverse.stateChanged.connect(
+            self.onCheckboxReverseChanged
+            )
         self.grid.addWidget(self.checkBox_reverse, 1, 1)
 
-        # Show the QGroupBox
+        #- Set up a CheckBox - Along
+        self.checkBox_along = QCheckBox(self.text_along)
+        self.checkBox_along.setToolTip(self.tooltip_along)
+        self.checkBox_along.setChecked(False)
+        self.checkBox_along.stateChanged.connect(
+            self.onCheckboxAlongChanged
+            )
+        self.grid.addWidget(self.checkBox_along, 2, 1)
+
+        #- Show the QGroupBox
         self.form = self.groupBox
 
+    def setWindowTexts(self):
+        """Supplies default texts or translations if available"""
+        self.text_panel     = translate("Templater",
+            "Auxiliary view settings"
+            )
+        self.text_marker    = translate("Templater",
+            "Marker of the auxiliary view: "
+            )
+        self.text_direction = translate("Templater", "Direction: ")
+        self.text_reverse   = translate("Templater", "Reverse direction")
+        self.text_along     = translate("Templater", "Along edge")
+
+        self.tooltip_marker  = translate("Templater",
+            "Sets the view marker"
+            )
+        self.tooltip_reverse = translate("Templater",
+            "Reverses the view direction"
+            )
+        self.tooltip_along = translate("Templater",
+            "If checked the line of sight will be aligned with the edge \n"
+            "instead of being perpendicular to it"
+            )
+
     def on_lineEdit_marker(self, value):
-        '''Renames the view markers'''
+        """Renames the view markers"""
         self.dir_tag.Text = value
         self.view_tag.Text = ("AuxView " + value)
 
-    def on_checkbox_changed(self, value):
-        '''Reverses the direction and the view arrow'''
+    def onCheckboxReverseChanged(self, value):
+        """Reverses the direction and the view arrow"""
         self.reverseDirection()
         self.reverseArrow()
+
+    def onCheckboxAlongChanged(self, value):
+        """Reverses the direction and the view arrow"""
         if value:
-            self.result = True
+            self.alignDirection(90)
+            self.alignArrow(90)
         else:
-            self.result = False
+            self.alignDirection(-90)
+            self.alignArrow(-90)
 
     def reverseArrow(self):
-        '''2D - Reverses the view arrow '''
+        """2D - Reverses the view arrow"""
         angle = float(self.symbol.Rotation)
         if angle >180:
             angle -= 180
         else:
             angle += 180
         self.symbol.Rotation = angle
-        #FreeCADGui.runCommand("TechDraw_RedrawPage",0)
+
+    def alignArrow(self, align_angle):
+        """2D - Aligns the view arrow by turning it 90°"""
+        angle = float(self.symbol.Rotation)
+        if align_angle > 0:
+            if angle < 270:
+                angle += 90
+            else:
+                angle -= 270
+        else:
+            if angle < 90:
+                angle += 270
+            else:
+                angle -= 90
+
+        self.symbol.Rotation = angle
+
+    def rotateVector(self, direction_vector, axis_vector, align_angle = 180):
+        """
+        3D - Rotates a direction vector around an axis vector.
+        Default reverses direction.
+        Returns the new direction.
+        """
+        #- Create rotation
+        # Remember: angle input in float (for degrees), stored in rad
+        vector_rotation = FreeCAD.Rotation(axis_vector, align_angle)
+        #- Apply rotation
+        return vector_rotation.multVec(direction_vector)
 
     def reverseDirection(self):
-        '''3D - Reverses the view direction'''
-        axis_vector = self.view.XDirection
-        z_direction = self.view.Direction
-        #- Create a rotation, angle input in float (for degrees), stored in rad
-        around_direction = FreeCAD.Rotation(axis_vector, 180)
-        #- Apply rotation to the base_view.XDirection
-        z_direction = around_direction.multVec(z_direction)
-        self.view.Direction = z_direction
+        """3D - Reverses the view direction"""
+        #- Rotate the view around its x axis:
+        self.view.Direction = self.rotateVector(
+            self.view.Direction,
+            self.view.XDirection
+            )
+        Gui.runCommand("TechDraw_RedrawPage",0)
+
+    def alignDirection(self, align_angle):
+        """
+        3D - Changes the alignment of the view direction (line of sight).
+        A positive align_angle value (90) changes from perpendicular (default)
+        to parallel while a negative value (-90) reverts to perpendicular.
+        The checkbox logic allows only one step forward and one back again.
+        """
+        #- Tilt back the view around its x axis:
+        self.view.Direction = self.rotateVector(
+            self.view.Direction,
+            self.view.XDirection,
+            align_angle
+            )
+        #- Turn the view around the base view's z axis:
+        self.view.XDirection = self.rotateVector(
+            self.view.XDirection,
+            self.view.BaseView.Direction,
+            (align_angle * -1)
+            )
+        #- Tilt the view to its new alignment:
+        self.view.Direction = self.rotateVector(
+            self.view.Direction,
+            self.view.XDirection,
+            align_angle
+            )
+        #- Adapt the rotation of the view according to the page
+        self.view.Rotation = float(self.view.Rotation) + (align_angle * -1)
         Gui.runCommand("TechDraw_RedrawPage",0)
 
     def accept(self):
-        '''slot: OK pressed'''
+        """slot: OK pressed"""
         Gui.Control.closeDialog()
 
     def reject(self):
         return True
 
 def getActiveDocument():
-    '''
-    Returns the active document or sends a message
-    '''
+    """Returns the active document or sends a message"""
     ado = FreeCAD.activeDocument()
     if ado is not None:
         return ado
-    TDToolsUtil.displayMessage("AuxView", "No active document available!")
+    message = translate("Templater", "No active document available!")
+    TDToolsUtil.displayMessage("AuxView", message)
     return False
 
 def getPageOfSelection(doc, b_view):
-    '''Retrieves the Page that holds the selected elements'''
+    """Retrieves the Page that holds the selected elements"""
     #- Find an object starting with 'Page' that contains the selected object
     for each in doc.Objects:
-        if each.Name.startswith("Page"):  # [0:4] == 'Page':
+        if each.Name.startswith("Page"):
             for item in each.OutList: # Search items belonging to a Page object
                 if item.Name.startswith("ProjGroup"): # Look into projection groups
                     for view in item.OutList: # Search views belonging to a ProjGroup object
@@ -151,12 +250,14 @@ def getPageOfSelection(doc, b_view):
                         return each
     return False
 
-def getCcwAngle(vertex1,vertex2,view_rotation):
-    '''Creates 3D vectors to calculate the 2D angle towards the x direction of the
+def getCcwAngle(vertex1,vertex2,view_rotation
+    """
+    Creates 3D vectors to calculate the 2D angle towards the x direction of the
     base view which is parallel to the page view's x direction.
     The direction of the XDirection property is not parallel to the view's
     x direction if the view is rotated! This angle also has to be taken into
-    account to calculate the 3D angle'''
+    account to calculate the 3D angle
+    """
     #- Extract position vectors from the points
     vector_start = FreeCAD.Vector(vertex1.X, vertex1.Y, vertex1.Z)
     vector_end   = FreeCAD.Vector(vertex2.X, vertex2.Y, vertex2.Z)
@@ -175,10 +276,10 @@ def getCcwAngle(vertex1,vertex2,view_rotation):
     return angle_x
 
 def symbolAngle(vertex1,vertex2):
-    '''
-    Creates 3D vectors to calculate the 2D angle towards the x direction of the
-    base view
-    '''
+    """
+    Creates 3D vectors to calculate the 2D angle towards the
+    x direction of the base view
+    """
     #- Extract position vectors from the points
     vector_start = FreeCAD.Vector(vertex1.X, vertex1.Y, vertex1.Z)
     vector_end   = FreeCAD.Vector(vertex2.X, vertex2.Y, vertex2.Z)
@@ -194,17 +295,25 @@ def symbolAngle(vertex1,vertex2):
     return angle_y
 
 def mainSection():
-    '''
+    """
     The main section, no more, no less
-    '''
+    """
     # Operations are performed in the active document of the application
     #- Retrieve the active document
     active_doc = getActiveDocument()
     if not active_doc:  # (active_doc is None/False)
         return
-    #- Retrieve the selection view and selected vertices
-    if TDToolsUtil.getSelView() and TDToolsUtil.getSelVertexes(2):
+    #- Retrieve the selection view
+    if TDToolsUtil.getSelView():
         base_view = TDToolsUtil.getSelView()
+    else:
+        return
+    #- Retrieve the selected edge or vertices
+    if TDToolsUtil.getSelEdges(0):
+        edges = TDToolsUtil.getSelEdges(0)
+        edge = edges[0]
+        vertices = edge.Vertexes
+    elif TDToolsUtil.getSelVertexes(2):
         vertices = TDToolsUtil.getSelVertexes(2)  # required number of vertices
     else:
         return
@@ -279,8 +388,9 @@ def mainSection():
     panel = TaskAuxView(new_view, new_symbol, dir_tag, view_tag)
     Gui.Control.showDialog(panel)
 
-    #active_doc.recompute(None,True,True)
     Gui.runCommand("TechDraw_RedrawPage",0)
+    #- To no longer see changes immediately
+    work_page.KeepUpdated = False
 
     return
 ##########################################################################################################
@@ -303,20 +413,26 @@ if SvgToolkit.isGuiLoaded():
     ##########################################################################################################
 
     class AuxViewCommandClass():
-        """Creates an auxiliary view from two points"""
+        """
+        Creates an auxiliary view from two vertices selected individually
+        or from the end vertices of a selected edge
+        """ 
 
         def GetResources(self):
             return {
                 "Pixmap": os.path.join(
                     icons_path, "Templater_AuxView.svg"
                 ),  # the name of an svg file available in the resources
-                "MenuText": "Auxiliary view",
+                "MenuText": QT_TRANSLATE_NOOP("Templator_AuxView",
+                    "Auxiliary view"
+                    ),
                 #"Accel": "S, H",
-                "ToolTip":
+                "ToolTip": QT_TRANSLATE_NOOP("Templator_AuxView",
                     "Creates an auxiliary view\n"
-                    "1. Select two vertices.\n"
+                    "1. Select 2 vertices or 1 edge.\n"
                     "2. Invoke this Command",
-            }
+                    )
+                }
 
         def Activated(self):
             mainSection()
