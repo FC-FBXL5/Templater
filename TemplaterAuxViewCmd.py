@@ -128,7 +128,7 @@ class TaskAuxView():
             "instead of being perpendicular to it"
             )
 
-    def on_lineEdit_marker(self, value):
+    def onLineEditMarker(self, value):
         """Renames the view markers"""
         self.dir_tag.Text = value
         self.view_tag.Text = ("AuxView " + value)
