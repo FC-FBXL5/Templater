@@ -46,10 +46,13 @@ from PySide import QtCore
 from PySide.QtGui import QGroupBox
 from PySide.QtWidgets import (QGridLayout, QLabel, QCheckBox, QLineEdit)
 
-translate = FreeCAD.Qt.translate
-
 icons_path = SvgToolkit.icons_path
 symbols_path = SvgToolkit.symbols_path
+
+translate = FreeCAD.Qt.translate
+
+def QT_TRANSLATE_NOOP(context, text):
+    return text
 
 class TaskAuxView():
     """Provides the TechDraw AuxView Task Dialog"""
