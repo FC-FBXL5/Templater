@@ -423,11 +423,11 @@ if SvgToolkit.isGuiLoaded():
                 "Pixmap": os.path.join(
                     icons_path, "Templater_AuxView.svg"
                 ),  # the name of an svg file available in the resources
-                "MenuText": QT_TRANSLATE_NOOP("Templator_AuxView",
+                "MenuText": QT_TRANSLATE_NOOP("Templater_AuxView",
                     "Auxiliary view"
                     ),
                 #"Accel": "S, H",
-                "ToolTip": QT_TRANSLATE_NOOP("Templator_AuxView",
+                "ToolTip": QT_TRANSLATE_NOOP("Templater_AuxView",
                     "Creates an auxiliary view\n"
                     "1. Select 2 vertices or 1 edge.\n"
                     "2. Invoke this Command",
