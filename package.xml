@@ -2,7 +2,7 @@
 <package format="1" xmlns="https://wiki.freecad.org/Package_Metadata">
 
   <name>Templater</name>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <date>2025-09-21</date>
   <description>A workbench to gather some drafting related tools</description>
   <maintainer email="bending.unit.22@web.de">FBXL5</maintainer>
