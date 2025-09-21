@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <package format="1" xmlns="https://wiki.freecad.org/Package_Metadata">
 
-  <name>Templater</name>
-
-  <description>A few drafting tools</description>
-
-  <version>2025.0.2</version>
-
-  <date>2025-09-19</date>
-
-  <icon>Resources/icons/Templater.svg</icon>
+  <name>Templater Workbench</name>
+  <version>0.0.1</version>
+  <date>2025-09-21</date>
+  <description>A workbench to gather some drafting related tools</description>
+  <maintainer email="bending.unit.22@web.de">FBXL5</maintainer>
+  <license>LGPL-3.0-or-later</license>
+  <icon>Resources/icons/TemplaterWorkbench.svg</icon>
+  <url type="repository" branch="main">https://github.com/FC-FBXL5/Templater</url>
+  <url type="readme">https://github.com/FC-FBXL5/Templater/blob/main/README.md</url>
 
   <content>
     <workbench>
+      <classname>Templater</classname>
+      <subdirectory>./</subdirectory>
       <tag>TechDraw</tag>
-      <tag>AuxView</tag>
+      <tag>drafting</tag>
       <tag>auxiliary view</tag>
-      <tag>Template</tag>
+      <tag>template</tag>
+      <depend>TechDraw</depend>
     </workbench>
   </content>
 
