@@ -25,7 +25,5 @@ The Templater WB can be installed via the [Addon Manager](https://github.com/Fre
 
 ## Release notes:
 
-* 2025.0.2 - 19.Sep.2025: AuxView tool updated, it is translatable now, accepts also an edge as an input, and has another option to adjust the direction.
-* 2025.0.1 - 11.Sep.2025: New Template Multi tool added.
-* 2025.0.0 - 20.Jun.2025: Initial version. Auxiliary View and New Template Wiki tools.
+* v.0.0.1 - 21.Jun.2025: Initial version.
 
