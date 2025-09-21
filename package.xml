@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <package format="1" xmlns="https://wiki.freecad.org/Package_Metadata">
 
-  <name>Templater Workbench</name>
+  <name>Templater</name>
   <version>0.0.1</version>
   <date>2025-09-21</date>
   <description>A workbench to gather some drafting related tools</description>
