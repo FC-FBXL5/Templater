@@ -1,25 +1,25 @@
 # -*- coding: utf-8 -*-
+# SPDX-License-Identifier: LGPL-3.0-or-later
 # ***************************************************************************
 # *                                                                         *
-# *   InitGui.py                                                            *
+# *   Copyright (c) 2025 FBXL5 available on the forum:                      *
+# *   https://forum.freecad.org/memberlist.php?mode=viewprofile&u=26761     *
 # *                                                                         *
-# *   Copyright (c) 2025 FBXL5                                              *
+# *   This file is part of FreeCAD.                                         *
 # *                                                                         *
-# *   This program is free software; you can redistribute it and/or modify  *
-# *   it under the terms of the GNU Lesser General Public License (LGPL)    *
-# *   as published by the Free Software Foundation; either version 2 of     *
-# *   the License, or (at your option) any later version.                   *
-# *   for detail see the LICENCE text file.                                 *
+# *   FreeCAD is free software: you can redistribute it and/or modify it    *
+# *   under the terms of the GNU Lesser General Public License as           *
+# *   published by the Free Software Foundation, either version 3.0 of the  *
+# *   License, or (at your option) any later version.                       *
 # *                                                                         *
-# *   This program is distributed in the hope that it will be useful,       *
-# *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-# *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-# *   GNU Library General Public License for more details.                  *
+# *   FreeCAD is distributed in the hope that it will be useful, but        *
+# *   WITHOUT ANY WARRANTY; without even the implied warranty of            *
+# *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU      *
+# *   Lesser General Public License for more details.                       *
 # *                                                                         *
-# *   You should have received a copy of the GNU Library General Public     *
-# *   License along with this program; if not, write to the Free Software   *
-# *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
-# *   USA                                                                   *
+# *   You should have received a copy of the GNU Lesser General Public      *
+# *   License along with FreeCAD. If not, see                               *
+# *   <https://www.gnu.org/licenses/>.                                      *
 # *                                                                         *
 # ***************************************************************************
 """A workbench related to TechDraw templates, views, and symbols."""
@@ -45,9 +45,6 @@ Gui.updateLocale()
 
 translate = FreeCAD.Qt.translate
 
-def QT_TRANSLATE_NOOP(context, text):
-    return text
-
 class Templater (Workbench):
     global templator_icon_path
     global templator_path
@@ -66,25 +63,29 @@ class Templater (Workbench):
         It is executed once in a FreeCAD session followed by the
         Activated function.
         """
+        from PySide import QtCore
+        from PySide.QtCore import QT_TRANSLATE_NOOP
         #- import here all the needed files that create your FreeCAD commands
         import os.path
         import SvgToolkit
         import TemplaterAuxViewCmd
+        import TemplaterToleranceFrameCmd
         import TitleBlock_KG
         import TemplaterTemplateWikiCmd
         import TemplaterTemplateMultiCmd
         #- a list of command names created in the line above
         self.list = [
             "Templater_AuxView",
+            "Templater_ToleranceFrame",
             "Templater_NewTemplateWiki",
             "Templater_NewTemplateMulti"
             ]
         #- create a new toolbar with these commands
-        self.appendToolbar(translate("Templater", "Templater"), self.list)
+        self.appendToolbar(QT_TRANSLATE_NOOP("Workbench", "Templater"), self.list)
         #- create a new menu
-        self.appendMenu("Templater", self.list)
+        self.appendMenu(QT_TRANSLATE_NOOP("Workbench", "Templater"), self.list)
         #- appends a submenu to an existing menu
-        #self.appendMenu(translate("Templater", "Templater"), self.list)
+        #self.appendMenu(QT_TRANSLATE_NOOP("Workbench", "Templater"), self.list)
 
     def Activated(self):
         """This function is executed whenever the workbench is activated"""
@@ -107,6 +108,8 @@ class Templater (Workbench):
 
 
 Gui.addWorkbench(Templater())
+
+
 
 
 
