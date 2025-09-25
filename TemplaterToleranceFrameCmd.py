@@ -38,7 +38,7 @@ import FreeCAD
 import SvgToolkit
 import os     # built-in modules
 from TechDrawTools import TDToolsUtil
-from PySide import QtCore
+from PySide import QtCorefrom PySide.QtCore import QT_TRANSLATE_NOOP
 from PySide.QtGui import (QAction, QGroupBox, QMessageBox)
 from PySide.QtWidgets import (QGridLayout, QLabel, QComboBox, QDoubleSpinBox)
 
