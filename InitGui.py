@@ -45,9 +45,6 @@ Gui.updateLocale()
 
 translate = FreeCAD.Qt.translate
 
-def QT_TRANSLATE_NOOP(context, text):
-    return text
-
 class Templater (Workbench):
     global templator_icon_path
     global templator_path
@@ -66,25 +63,29 @@ class Templater (Workbench):
         It is executed once in a FreeCAD session followed by the
         Activated function.
         """
+        from PySide import QtCore
+        from PySide.QtCore import QT_TRANSLATE_NOOP
         #- import here all the needed files that create your FreeCAD commands
         import os.path
         import SvgToolkit
         import TemplaterAuxViewCmd
+        import TemplaterToleranceFrameCmd
         import TitleBlock_KG
         import TemplaterTemplateWikiCmd
         import TemplaterTemplateMultiCmd
         #- a list of command names created in the line above
         self.list = [
             "Templater_AuxView",
+            "Templater_ToleranceFrame",
             "Templater_NewTemplateWiki",
             "Templater_NewTemplateMulti"
             ]
         #- create a new toolbar with these commands
-        self.appendToolbar(translate("Templater", "Templater"), self.list)
+        self.appendToolbar(QT_TRANSLATE_NOOP("Workbench", "Templater"), self.list)
         #- create a new menu
-        self.appendMenu("Templater", self.list)
+        self.appendMenu(QT_TRANSLATE_NOOP("Workbench", "Templater"), self.list)
         #- appends a submenu to an existing menu
-        #self.appendMenu(translate("Templater", "Templater"), self.list)
+        #self.appendMenu(QT_TRANSLATE_NOOP("Workbench", "Templater"), self.list)
 
     def Activated(self):
         """This function is executed whenever the workbench is activated"""
@@ -107,6 +108,7 @@ class Templater (Workbench):
 
 
 Gui.addWorkbench(Templater())
+
 
 
 
