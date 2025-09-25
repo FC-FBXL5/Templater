@@ -43,6 +43,7 @@ import math  # to use some predefined conversions
 import SvgToolkit
 from TechDrawTools import TDToolsUtil
 from PySide import QtCore
+from PySide.QtCore import QT_TRANSLATE_NOOP
 from PySide.QtGui import QGroupBox
 from PySide.QtWidgets import (QGridLayout, QLabel, QCheckBox, QLineEdit)
 
@@ -50,9 +51,6 @@ icons_path = SvgToolkit.icons_path
 symbols_path = SvgToolkit.symbols_path
 
 translate = FreeCAD.Qt.translate
-
-def QT_TRANSLATE_NOOP(context, text):
-    return text
 
 class TaskAuxView():
     """Provides the TechDraw AuxView Task Dialog"""
