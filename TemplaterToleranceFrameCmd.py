@@ -190,7 +190,7 @@ def createFrame(file_path, strings, cell_widths = [10]):
         "stroke-linecap:round;stroke-linejoin:round;font-size:6.5;\n"
         )
     s.write(loi +
-        "text-anchor:middle;font-family:osifont\">\n"
+        "text-anchor:middle;font-family:DIN Alternate\">\n"
         )
     loi = levelOfIndentation(4)
 
