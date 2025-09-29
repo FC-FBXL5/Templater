@@ -84,9 +84,9 @@ def ediText(entry_name, x, y, str_value, str_angle="0"):
     with the given values.
     Optional str_angle enables vertical and arbitrarily rotated editable texts
     """
-    #- Offsets to place osifont texts with a height of 6.5 properly
-    x = str(float(x) + 1.4) # offset from the cell center
-    y = str(float(y) + 2.5) # offset fron the middle of the cell
+    #- Offsets to place DIN Alternate texts with a height of 6.5 properly
+    x = str(float(x) + 0.9) # offset from the cell center
+    y = str(float(y) + 2.4) # offset fron the middle of the cell
 
     if str_angle == "0":
         svg_line = (
