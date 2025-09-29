@@ -38,7 +38,8 @@ import FreeCAD
 import SvgToolkit
 import os     # built-in modules
 from TechDrawTools import TDToolsUtil
-from PySide import QtCorefrom PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide import QtCore
+from PySide.QtCore import QT_TRANSLATE_NOOP
 from PySide.QtGui import (QAction, QGroupBox, QMessageBox)
 from PySide.QtWidgets import (QGridLayout, QLabel, QComboBox, QDoubleSpinBox)
 
@@ -58,6 +59,23 @@ def getActiveDocument():
         return ado
     message = translate("Templater", "No active document available!")
     TDToolsUtil.displayMessage("AuxView", message)
+    return False
+
+def getPageOfSelection(doc, active_view):
+    """
+    Retrieves the Page that holds the selected elements
+    """
+    #- Find an object starting with 'Page' that contains the selected object
+    for each in doc.Objects:
+        if each.Name.startswith("Page"):
+            for item in each.OutList: # Search items belonging to a Page object
+                if item.Name.startswith("ProjGroup"): # Look into projection groups
+                    for view in item.OutList: # Search views belonging to a ProjGroup object
+                        if view.Name == active_view.Name:
+                            return each
+                else:
+                    if item.Name == active_view.Name:
+                        return each
     return False
 
 def ediText(entry_name, x, y, str_value, str_angle="0"):
@@ -115,42 +133,52 @@ def annoItem(type = "A", pos_x = "5", pos_y = "5"):
     else:
         return [ediText("Datum", pos_x, pos_y, type)]  # 5, 5 for datum frame
 
-def insertSymbol(symbol_path):
+def symbolObject(svg_path, symbol_name):
     """
-    Inserts a symbol in the active document
+    Creates a TechDraw symbol object in the active document
     """
     #- Create the symbol as a document object
     active_doc = getActiveDocument()
-    sym = active_doc.addObject("TechDraw::DrawViewSymbol","FeatureFrame")
-    s = open(symbol_path, "r", encoding="utf-8")
-    svg = s.read()
-    s.close()
-    sym.Symbol = svg
-    #- insert the symbol into a page
-    if not Gui.Selection.getSelection():
-        if not Gui.activeView():
-            message = translate("Templater", "No view found!")
-            TDToolsUtil.displayMessage("Feature Frame", message)
-            return
-        else:
-            active_view = Gui.activeView()
-            if not active_view.getPage():
-                message = translate("Templater", "No page found!")
-                TDToolsUtil.displayMessage("Feature Frame", message)
-                return
-            active_page = active_view.getPage()
-            active_page.addView(sym)
+    new_symbol = active_doc.addObject("TechDraw::DrawViewSymbol",symbol_name)
+    #- Load SVG file
+    svg_file = open(svg_path, "r", encoding="utf-8")
+    svg_code = svg_file.read()
+    svg_file.close()
+    new_symbol.Symbol = svg_code
+    return new_symbol
+
+def insertSymbol(td_symbol):
+    """
+    Inserts a symbol in the active document
+    """
+    Symbol_name = td_symbol.Name
+    #- Retrieve the active document
+    active_doc = getActiveDocument()
+    #- Retrieve the selection view
+    if TDToolsUtil.getSelView():
+        active_view = TDToolsUtil.getSelView()
     else:
-        active_view = Gui.Selection.getSelection()[0]
-        active_page = active_view.getPage()
-        active_page.addView(sym)
-        sym.Owner = active_view
+        return
+    #- Retrieve the page that holds the view
+    active_page = getPageOfSelection(active_doc, active_view)
+    #- To see changes immediately
+    active_page.KeepUpdated = True
+    #- Add the symbol to the page
+    active_page.addView(td_symbol)
+    #- Add a view as owner to synchronise movements
+    td_symbol.Owner = active_view
+
+    Gui.runCommand("TechDraw_RedrawPage",0)
+    #- To no longer see changes immediately
+    active_page.KeepUpdated = False
 
     active_page.ViewObject.doubleClicked()
     return
 
 def createFrame(file_path, strings, cell_widths = [10]):
-    """Creates a rectangle and separator lines for the tolerance/datum frame"""
+    """
+    Creates a rectangle and separator lines for the tolerance/datum frame
+    """
     s = open(file_path, "a", encoding="utf-8")
     loi = levelOfIndentation(2)
     s.write(loi + "<g id=\"first-frame\"\n")
@@ -171,11 +199,11 @@ def createFrame(file_path, strings, cell_widths = [10]):
     anno_segments = annoItem(strings[0])
 
     if number_of_cells == 1:
-        #- Creates a single square datum frame
+        #- Create a single square datum frame
         s.write(loi + svgRect("9.5", "9.5", "0.25", "0.25") + "\n")
         s.write(loi + anno_segments[0] + "\n")
     else:
-        #- Creates a rectangle, with length of lines instead of outer length
+        #- Create a rectangle, with length of lines instead of outer length
         length = 0
         for value in cell_widths:
             length += (value - 0.5) # Outer length minus one line width
@@ -246,7 +274,6 @@ def createSymbol(
                     if len(reference3) > 1:
                         width5 += len(reference3) * 1.5
                     widths.append(width5)
-    print(widths)
     #- calculate the symbol length
     length = 0.5 # start with one line width
     for value in widths:
@@ -258,7 +285,10 @@ def createSymbol(
     SvgToolkit.startSvg(file_path, symbol_width, symbol_height)
     createFrame(file_path, strings, widths)
     SvgToolkit.endSvg(file_path)
-    insertSymbol(file_path)
+    # At this point an SVG symbol file is created in the given directory
+    #- Create a symbol object and insert it into a drawig pages
+    frame_symbol = symbolObject(file_path, "FeatureFrame")
+    insertSymbol(frame_symbol)
     return
 ##########################################################################################################
 # Gui code
@@ -503,7 +533,6 @@ if SvgToolkit.isGuiLoaded():
             return
 
         def IsActive(self):
-        #    print("Bin aktiv")
             return True
 
     Gui.addCommand("Templater_ToleranceFrame", TolFrameCommandClass())
