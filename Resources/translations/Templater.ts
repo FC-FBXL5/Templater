@@ -373,16 +373,6 @@ and Reopen the file!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="466"/>
-        <source>⌯ Symmetry</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="468"/>
-        <source>⌓ SurfaceProfile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="438"/>
         <source>Dialog window</source>
         <translation type="unfinished"></translation>
@@ -498,8 +488,18 @@ and Reopen the file!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="466"/>
+        <source>Symmetry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="467"/>
         <source>LineProfile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="468"/>
+        <source>SurfaceProfile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
