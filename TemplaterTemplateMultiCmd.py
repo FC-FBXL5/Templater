@@ -39,6 +39,7 @@ import os
 import SvgToolkit
 import TitleBlock_KG
 from PySide import QtCore
+from PySide.QtCore import QT_TRANSLATE_NOOP
 from PySide.QtGui import (QAction, QGroupBox, QMessageBox, QPixmap)
 from PySide.QtWidgets import (QGridLayout, QLabel, QComboBox,
     QDoubleSpinBox, QCheckBox, QRadioButton, QButtonGroup
@@ -746,10 +747,10 @@ class TemplateTaskPanel():
                 "Pixmap": os.path.join(
                     icons_path, "Templater_NewTemplateMulti.svg"
                     ),  # the name of an svg file available in the resources
-                "MenuText": translate("Templater", "New Template Multi"),
+                "MenuText": QT_TRANSLATE_NOOP("Templater_NewTemplateMulti",
+                    "New Template Multi"),
                 #"Accel": "W, T",
-                "ToolTip": translate(
-                    "Templater",
+                "ToolTip": QT_TRANSLATE_NOOP("Templater_NewTemplateMulti",
                     "Creates and inserts a new template\n"
                     "in the active document",
                     ),
