@@ -40,6 +40,7 @@ import FreeCADGui
 import os
 import SvgToolkit
 from PySide import QtCore
+from PySide.QtCore import QT_TRANSLATE_NOOP
 from PySide.QtGui import (QAction, QGroupBox, QMessageBox)
 from PySide.QtWidgets import (QGridLayout, QLabel, QComboBox,
     QDoubleSpinBox, QCheckBox
@@ -321,12 +322,15 @@ if SvgToolkit.isGuiLoaded():
                 "Pixmap": os.path.join(
                     icons_path, "Templater_NewTemplateWiki.svg"
                     ),  # the name of a svg file available in the resources
-                "MenuText": "New Template Wiki",
+                "MenuText": QT_TRANSLATE_NOOP("Templater_NewTemplateWiki",
+                    "New Template Wiki"
+                    ),
                 #"Accel": "W, T",
-                "ToolTip":
+                "ToolTip": QT_TRANSLATE_NOOP("Templater_NewTemplateWiki",
                     "Creates and inserts a new template like described in the\n"
                     "TechDraw TemplateGenerator tutorial in the wiki\n\n"
-                    "Just invoke this Command",
+                    "Just invoke this Command"
+                    ),
                 }
 
         def Activated(self):
