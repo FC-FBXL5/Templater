@@ -356,29 +356,29 @@ if SvgToolkit.isGuiLoaded():
             #- set up a ComboBox - Tolerance type
             self.coBox_tolerance = QComboBox()
             self.tolerance_list = (
-                translate("Templater", "⏤ Straightness"),
-                translate("Templater", "⏥ Flatness"),
-                translate("Templater", "○ Roundness"),
-                translate("Templater", "◎ Concentricity"),
-                translate("Templater", "⌭ Cylindricity"),
-                translate("Templater", "⌖ Position"),
-                translate("Templater", "∥ Parallelism"),
-                translate("Templater", "⟂ Perpendicularity"),
-                translate("Templater", "∠ Angularity"),
-                translate("Templater", "⌯ Symmetry"),
-                translate("Templater", "⌒ LineProfile"),
-                translate("Templater", "⌓ SurfaceProfile"),
-                translate("Templater", "↗ CircularRunOut"),
-                translate("Templater", "⌰ TotalRunOut"),
-                translate("Templater", "X Datum")
-                )
+                self.option_01,
+                self.option_02,
+                self.option_03,
+                self.option_04,
+                self.option_05,
+                self.option_06,
+                self.option_07,
+                self.option_08,
+                self.option_09,
+                self.option_10,
+                self.option_11,
+                self.option_12,
+                self.option_13,
+                self.option_14,
+                self.option_15,
+                )  # see setWindowTexts()
             self.coBox_tolerance.setToolTip(self.tooltip_tol)
             #self.coBox_tolerance.setFixedWidth(150)
             self.coBox_tolerance.setEditable(True)
             self.coBox_tolerance.addItems(self.tolerance_list)
-            self.coBox_tolerance.setCurrentIndex(self.tolerance_list.index(
-                "⌖ Position"))
-            #self.input_tolerance.activated[str].connect(self.onInputTolerance)
+            self.coBox_tolerance.setCurrentIndex(
+                self.tolerance_list.index(self.option_06)
+                )
             self.coBox_tolerance.currentTextChanged.connect(
                 self.onCoBoxTolerance
                 )
@@ -452,12 +452,28 @@ if SvgToolkit.isGuiLoaded():
             self.text_maximum  = translate("Templater", "1,0")
             self.tooltip_tol   = translate("Templater", "Tolerances")
             self.tooltip_value = translate("Templater", "Tolerance val")
+
+            self.option_01 = "⏤ " + translate("Templater", "Straightness")
+            self.option_02 = "⏥ " + translate("Templater", "Flatness")
+            self.option_03 = "○ " + translate("Templater", "Roundness")
+            self.option_04 = "◎ " + translate("Templater", "Concentricity")
+            self.option_05 = "⌭ " + translate("Templater", "Cylindricity")
+            self.option_06 = "⌖ " + translate("Templater", "Position")
+            self.option_07 = "∥ " + translate("Templater", "Parallelism")
+            self.option_08 = "⟂ " + translate("Templater", "Perpendicularity")
+            self.option_09 = "∠ " + translate("Templater", "Angularity")
+            self.option_10 = "⌯ " + translate("Templater", "Symmetry")
+            self.option_11 = "⌒ " + translate("Templater", "LineProfile")
+            self.option_12 = "⌓ " + translate("Templater", "SurfaceProfile")
+            self.option_13 = "↗ " + translate("Templater", "CircularRunOut")
+            self.option_14 = "⌰ " + translate("Templater", "TotalRunOut")
+            self.option_15 = "X " + translate("Templater", "Datum")
             return
 
         def onCoBoxTolerance(self, current_text):
             if len(current_text) == 1:
                 self.result_tolrance = current_text
-            elif current_text.endswith("Datum"):
+            elif current_text.endswith(self.option_15[2:]):
                 self.result_tolrance = current_text[0]
             else:
                 self.result_tolrance = current_text[2:]
