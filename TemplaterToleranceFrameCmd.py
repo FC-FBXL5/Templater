@@ -563,7 +563,7 @@ if SvgToolkit.isGuiLoaded():
                     icons_path, "Templater_ToleranceFrame.svg"
                     ),  # the name of a svg file available in the resources
                 "MenuText": QT_TRANSLATE_NOOP("Templater_ToleranceFrame",
-                    "Tolerance frame"
+                    "Tolerance Frame"
                     ),
                 # "Accel": "S, H",
                 "ToolTip": QT_TRANSLATE_NOOP("Templater_ToleranceFrame",
