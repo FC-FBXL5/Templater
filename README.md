@@ -37,6 +37,7 @@ The Templater WB can be installed via the [Addon Manager](https://github.com/Fre
 
 ## Release notes:
 
+* v.0.0.4 - 06.Okt.2025: Tolerance Frame tool now works prooperly when translated.
 * v.0.0.3 - 29.Sep.2025: A tool to create feature frames was added.
 * v.0.0.2 - 22.Sep.2025: Minor adjusments.
 * v.0.0.1 - 21.Sep.2025: Initial version.
