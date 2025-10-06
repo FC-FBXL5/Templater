@@ -248,8 +248,6 @@ def createSymbol(
     #- String list for the frame
     strings = [tolerance, value, reference1, reference2, reference3]
     #- Widths list for the frame
-    if tolerance.endswith("Datum"):
-        tolerance = symbol_values.type[0]
     if (len(tolerance) == 1):
         widths = [10]
     else:
@@ -434,10 +432,9 @@ if SvgToolkit.isGuiLoaded():
             self.form = self.groupBox
 
         def setWindowTexts(self):
-            self.text_panel    = translate("Templater", "Dialog window")
+            self.text_panel    = translate("Templater", "Feature Frame Settings")
             self.text_ok       = translate("Templater", "OK")
             self.text_cancel   = translate("Templater", "Cancel")
-            self.text_format   = translate("Templater", "LiLaLabeltext")
             self.text_type     = translate("Templater", "Tolerance type")
             self.text_value    = translate("Templater", "Tolerance value")
             self.text_first    = translate("Templater", "Datum1")
@@ -450,8 +447,15 @@ if SvgToolkit.isGuiLoaded():
             self.text_round    = translate("Templater", "Round")
             self.text_default  = translate("Templater", "0,02")
             self.text_maximum  = translate("Templater", "1,0")
-            self.tooltip_tol   = translate("Templater", "Tolerances")
-            self.tooltip_value = translate("Templater", "Tolerance val")
+            self.tooltip_tol   = translate("Templater",
+                "Selects the tolerance type \n"
+                "Select from the list or type \n"
+                "a sinngle upper case letter for a datum frame"
+                )
+            self.tooltip_datum = translate("Templater", "Sets a datum marker")
+            self.tooltip_value = translate("Templater",
+                "Sets the size of the tolerance field"
+                )
 
             self.option_01 = "⏤ " + translate("Templater", "Straightness")
             self.option_02 = "⏥ " + translate("Templater", "Flatness")
@@ -490,13 +494,40 @@ if SvgToolkit.isGuiLoaded():
         def onCoBoxReference3(self, current_text):
             self.result_reference3 = current_text
 
+        def retranslate(self, tolerance):
+            """
+            This is required since the instructions to draw the related
+            tolerance symbols are addressed by their English names for clarity.
+            This worked well until translation was involved.
+            """
+            TOL_DICT = {
+                self.option_01[2:]:"Straightness",
+                self.option_02[2:]:"Flatness",
+                self.option_03[2:]:"Roundness",
+                self.option_04[2:]:"Concentricity",
+                self.option_05[2:]:"Cylindricity",
+                self.option_06[2:]:"Position",
+                self.option_07[2:]:"Parallelism",
+                self.option_08[2:]:"Perpendicularity",
+                self.option_09[2:]:"Angularity",
+                self.option_10[2:]:"Symmetry",
+                self.option_11[2:]:"LineProfile",
+                self.option_12[2:]:"SurfaceProfile",
+                self.option_13[2:]:"CircularRunOut",
+                self.option_14[2:]:"TotalRunOut",
+                self.option_15[2:]:"Datum",
+                }
+            if tolerance in TOL_DICT:
+                return TOL_DICT[tolerance]
+            return tolerance
+
         def accept(self):
             '''
             This is triggered by the panel's OK button.
             But also prevents the closing of the panel
             '''
             # Collect results
-            tolerance = self.result_tolrance
+            tolerance = self.retranslate(self.result_tolrance)
             value = self.result_value
             reference1 = self.result_reference1
             reference2 = self.result_reference2
@@ -532,7 +563,7 @@ if SvgToolkit.isGuiLoaded():
                     icons_path, "Templater_ToleranceFrame.svg"
                     ),  # the name of a svg file available in the resources
                 "MenuText": QT_TRANSLATE_NOOP("Templater_ToleranceFrame",
-                    "Tolerance frame"
+                    "Tolerance Frame"
                     ),
                 # "Accel": "S, H",
                 "ToolTip": QT_TRANSLATE_NOOP("Templater_ToleranceFrame",

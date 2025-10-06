@@ -425,7 +425,7 @@ if SvgToolkit.isGuiLoaded():
                     icons_path, "Templater_AuxView.svg"
                 ),  # the name of an svg file available in the resources
                 "MenuText": QT_TRANSLATE_NOOP("Templater_AuxView",
-                    "Auxiliary view"
+                    "Auxiliary View"
                     ),
                 #"Accel": "S, H",
                 "ToolTip": QT_TRANSLATE_NOOP("Templater_AuxView",
