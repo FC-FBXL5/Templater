@@ -236,13 +236,13 @@ to create a new page</source>
     </message>
     <message>
         <location filename="../../TemplaterTemplateMultiCmd.py" line="552"/>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="440"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="438"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterTemplateMultiCmd.py" line="554"/>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="439"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="437"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -373,147 +373,149 @@ and Reopen the file!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="438"/>
-        <source>Dialog window</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="441"/>
-        <source>LiLaLabeltext</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="442"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="439"/>
         <source>Tolerance type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="443"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="440"/>
         <source>Tolerance value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="444"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="441"/>
         <source>Datum1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="445"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="442"/>
         <source>Datum2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="446"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="443"/>
         <source>Datum3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="449"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="446"/>
         <source>Circular tolerance area</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="450"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="447"/>
         <source>Square</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="451"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="448"/>
         <source>Round</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="452"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="449"/>
         <source>0,02</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="453"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="450"/>
         <source>1,0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="454"/>
-        <source>Tolerances</source>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="436"/>
+        <source>Feature Frame Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="455"/>
+        <source>Selects the tolerance type 
+Select from the list or type 
+a sinngle upper case letter for a datum frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="456"/>
-        <source>Tolerance val</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="457"/>
-        <source>Straightness</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="458"/>
-        <source>Flatness</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="459"/>
-        <source>Roundness</source>
+        <source>Sets a datum marker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="460"/>
-        <source>Concentricity</source>
+        <source>Sets the size of the tolerance field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="461"/>
-        <source>Cylindricity</source>
+        <source>Straightness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="462"/>
-        <source>Position</source>
+        <source>Flatness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="463"/>
-        <source>Parallelism</source>
+        <source>Roundness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="464"/>
-        <source>Perpendicularity</source>
+        <source>Concentricity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="465"/>
-        <source>Angularity</source>
+        <source>Cylindricity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="466"/>
-        <source>Symmetry</source>
+        <source>Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="467"/>
-        <source>LineProfile</source>
+        <source>Parallelism</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="468"/>
-        <source>SurfaceProfile</source>
+        <source>Perpendicularity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="469"/>
-        <source>CircularRunOut</source>
+        <source>Angularity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="470"/>
-        <source>TotalRunOut</source>
+        <source>Symmetry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../TemplaterToleranceFrameCmd.py" line="471"/>
+        <source>LineProfile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="472"/>
+        <source>SurfaceProfile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="473"/>
+        <source>CircularRunOut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="474"/>
+        <source>TotalRunOut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="475"/>
         <source>Datum</source>
         <translation type="unfinished"></translation>
     </message>
@@ -522,7 +524,7 @@ and Reopen the file!</source>
     <name>Templater_AuxView</name>
     <message>
         <location filename="../../TemplaterAuxViewCmd.py" line="429"/>
-        <source>Auxiliary view</source>
+        <source>Auxiliary View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -566,12 +568,12 @@ Just invoke this Command</source>
 <context>
     <name>Templater_ToleranceFrame</name>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="536"/>
-        <source>Tolerance frame</source>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="567"/>
+        <source>Tolerance Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../TemplaterToleranceFrameCmd.py" line="542"/>
+        <location filename="../../TemplaterToleranceFrameCmd.py" line="573"/>
         <source>Creates a tolerance frame for a specific geometric tolerance
 1. Invoke this Command.
 2. Adjust parameters</source>
