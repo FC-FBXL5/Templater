@@ -1,28 +1,43 @@
-# FreeCAD_Templater
+# <img src="/Resources/icons/TemplaterWorkbench.svg" height="64"> FreeCAD_Templater
+
 A workbench related to templates, symbols, and auxiliary views for TechDraw drawings.
-# Tools
+
+## Tools
+
 Now 3 kinds of tools are available, tools to create templates and pages, and a tool to create views.
-## Creating and inserting templates
+
+### <img src="/Resources/icons/Templater_NewTemplateWiki.svg" height="32"> <img src="/Resources/icons/Templater_NewTemplateMulti.svg" height="32"> Creating and inserting templates
+
 Two tools to create a template and insert it into the active dokument.
 * One resembles the example from the [TechDraw TemplateGenerator](https://wiki.freecad.org/TechDraw_TemplateGenerator) tutorial page.
-* The other is a bit overloaded but shows how templates could be created and inserted automatically 
-### Usage
+* The other is a bit overloaded but shows how templates could be created and inserted automatically
+
+#### Usage
+
 1. Launch either the New Template Wiki, or the New Template Multi tool.
 2. Adjust the parameters in the task panel.
 3. OK finishes the selected tool, and you should find a new page with an embedded template in your document.
-## Create an auxiliary view
+
+### <img src="/Resources/icons/Templater_AuxView.svg" height="32"> Create an auxiliary view
+
 This tool creates a secondary (auxiliary) view from 1 edge or 2 selected vertices of one existing view. It is based on the [Macro_TechDraw_AuxiliaryView](https://wiki.freecad.org/Macro_TechDraw_AuxiliaryView).
-### Usage
+
+#### Usage
+
 1. Select 1 edge (2 end vertices) or 2 individual vertices to define the view direction.
 2. Launch the Auxiliary View tool.
 3. An auxiliary view is created, its view direction is perpendicular to the connecting line between the two selected vertices by default.
 4. Optionally reverse the view direction in the task panel.
 5. Optionally align the view direction with the connecting line in the task panel.
 6. Click Ok to finish.
-## Creating and inserting feature frames
+
+### <img src="/Resources/icons/Templater_ToleranceFrame.svg" height="32"> Creating and inserting feature frames
+
 This tool creates feature frames for GD&T purposes.
 Line parameters match with a symbol height of 10 mm.
-### Usage
+
+#### Usage
+
 1. Select 1 view.
 2. Launch the Tolerance Frame tool.
 3. Adjust the parameters in the task panel.
@@ -31,8 +46,8 @@ Line parameters match with a symbol height of 10 mm.
    * Edit the datum entries.
 4. Click Ok to finish.
 
+## Installation
 
-# Installation
 The Templater WB can be installed via the [Addon Manager](https://github.com/FreeCAD/FreeCAD-addons) (in the Tools menu)
 
 ## Release notes:
